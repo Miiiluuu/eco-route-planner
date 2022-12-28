@@ -28,6 +28,7 @@ Developers
 
 The Team expresses its gratitude to:
 
+- [TechLabsHamburg](https://github.com/TechLabsHamburg)
 - [Carlchristian Eckert](https://github.com/slizzered)
 
 Kudos to everyone, mentioned or unmentioned, who contributed further in any
