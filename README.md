@@ -16,13 +16,13 @@ Developers
 
 #### TechLabs Supervision
 
-- Konstantin Münster
+- [Konstantin Münster](https://github.com/konstantinmuenster)
 
 #### core developers
 
-- Verena Geble
-- Kai Schweers
-- Svenja Koch
+- [Verena Geble](https://github.com/veroges)
+- [Kai Schweers](https://github.com/Garvinus)
+- [Svenja Koch](https://github.com/Sivinia-Josephine)
 - [Mieke Möller](https://github.com/Miiiluuu)
 
 ### Former Members, Contributions and Thanks
