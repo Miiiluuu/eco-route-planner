@@ -5,9 +5,21 @@ A route planner with a focus on sustainability
 Introduction
 ------------
 
-TextTextTextTextText
-NochMehrText
+### How to get started
 
+```
+# git clone this repository
+git clone https://github.com/Miiiluuu/eco-route-planner.git
+cd eco-route-planner
+
+# install dependencies
+npm install
+
+# run web server
+npm run dev
+
+# open browser at 'http://localhost:3000'
+```
 
 Developers
 ----------
