@@ -14,6 +14,11 @@ cd eco-route-planner
 
 # install dependencies
 npm install
+
+# run web server
+npm run dev
+
+# open browser at 'http://localhost:3000'
 ```
 
 Developers
