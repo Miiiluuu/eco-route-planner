@@ -1,0 +1,16 @@
+.logo {
+    display: block;
+    color: red;
+}
+
+.nav-link {
+    display: block;
+    color: red;
+}
+
+.nav_bar {}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
