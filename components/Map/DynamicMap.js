@@ -1,16 +1,10 @@
-import {
-  MapContainer,
-  TileLayer,
-  useMap,
-  useMapEvents,
-  Popup,
-  Polyline,
-} from "react-leaflet";
-import L, { Marker, icon } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
+import L from "leaflet";
 import Styles from "./Map.module.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ShowTravelPlan from "./ShowTravelPlan"
 
 export default function DynamicMap() {
   // some const for data fetching
@@ -21,9 +15,6 @@ export default function DynamicMap() {
   let center = [51.505, -0.09];
 
   const [plan, setPlan] = useState({});
-  const [isValidPlan, setValidPlan] = useState(false);
-  const [positionFrom, setPositionFrom] = useState(null);
-  const [positionTo, setPositionTo] = useState(null);
 
   // definition of start and stop marker image/size
   const fromIcon = L.icon({
@@ -61,47 +52,6 @@ export default function DynamicMap() {
     fetchItems();
   }, []);
 
-  // check if there is already a valid plan fetched from OTP server, there isn't at the beginning because of async while fetching
-  useEffect(() => {
-    if (plan != {}) setValidPlan(true);
-    if (isValidPlan) {
-      console.log("PLAN:", plan);
-    }
-  }, [plan]);
-
-  
-  function ShowTravelPlan() {
-    // if you click on the map you will fly to the start coordinates of the travel plan
-    const map = useMapEvents({
-      click() {
-        if (isValidPlan) {
-          const fromLocation = { lat: plan.from.lat, lon: plan.from.lon };
-          const toLocation = { lat: plan.to.lat, lon: plan.to.lon };
-          setPositionFrom(fromLocation);
-          setPositionTo(toLocation);
-          map.flyTo(fromLocation, map.getZoom());
-        }
-      },
-    });
-
-    if (positionFrom === null) {
-      return null;
-    }
-
-    //adds markers to the start and stop coordinates of the travel plan
-    new L.marker(positionFrom, { icon: fromIcon }).addTo(map);
-    new L.marker(positionTo, { icon: toIcon }).addTo(map);
-
-    // legGeometry.points holds encoded coordinates (lat, lon) of intermediate steps along the travel plan
-    const polyUtil = require("polyline-encoded");
-    const polypositions = polyUtil.decode(
-      plan.itineraries[0].legs[0].legGeometry.points
-    );
-    console.log(polypositions);
-
-    // sets Coordinates as Polyline to visualize the travel plan
-    return <Polyline positions={polypositions} />;
-  }
 
   return (
     <div>
@@ -116,7 +66,7 @@ export default function DynamicMap() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <ShowTravelPlan />
+        <ShowTravelPlan plan={plan} toIcon={toIcon} fromIcon={fromIcon} />
       </MapContainer>
     </div>
   );
