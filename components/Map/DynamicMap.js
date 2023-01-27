@@ -7,12 +7,13 @@ import axios from "axios";
 import ShowTravelPlan from "./ShowTravelPlan"
 
 export default function DynamicMap() {
-  // some const for data fetching
-  const server = "http://localhost:8080/otp/routers/default/plan";
-  const toPlace = "45.46630,-122.69325";
-  const fromPlace = "45.43469,-122.76426";
-  // center of map, right now coordinates of london
-  let center = [51.505, -0.09];
+  // some const for data fetching:
+  // currently map of hamburg is loaded
+  const server ="http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan";
+  const fromPlace = "53.552719,10.005607";                  // main station Hamburg
+  const toPlace = "53.54145079524408,9.98413080586419";     // Elbphilharmonie Hamburg
+  // center of map, right now coordinates of airport Hamburg
+  let center = [53.63383190811092, 9.99638283572184];
 
   const [plan, setPlan] = useState({});
 
