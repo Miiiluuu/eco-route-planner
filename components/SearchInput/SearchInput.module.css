@@ -1,0 +1,4 @@
+.search_fields {
+  display: flex;
+  justify-content: space-evenly;
+}

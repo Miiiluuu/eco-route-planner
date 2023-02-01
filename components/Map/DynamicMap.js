@@ -4,14 +4,17 @@ import Styles from "./Map.module.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ShowTravelPlan from "./ShowTravelPlan"
+import ShowTravelPlan from "./ShowTravelPlan";
 
-export default function DynamicMap() {
+export default function DynamicMap({ start, end }) {
+  console.log('In Map:' + start)
   // some const for data fetching:
   // currently map of hamburg is loaded
-  const server ="http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan";
-  const fromPlace = "53.552719,10.005607";                  // main station Hamburg
-  const toPlace = "53.54145079524408,9.98413080586419";     // Elbphilharmonie Hamburg
+  const server =
+    "http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan";
+  // start and end of the travel route will be passed in as parameters
+  const fromPlace = start;
+  const toPlace = end;
   // center of map, right now coordinates of airport Hamburg
   let center = [53.63383190811092, 9.99638283572184];
 
@@ -51,7 +54,7 @@ export default function DynamicMap() {
       setPlan(result.data.plan);
     };
     fetchItems();
-  }, []);
+  }, [start, end]);
 
 
   return (
