@@ -1,0 +1,22 @@
+.background{
+    background-color: #05595B;
+    width: 100%; 
+}
+.text-background{
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    padding: 10px;
+    display: inline-block;
+}
+
+.h1-about{
+    color:#062C30;
+    font-family: roboto, helvetica, arial;
+    font-size: 48px;
+}
+
+.p-about{
+    color:#062C30;
+    font-family: roboto, helvetica, arial;
+    font-size: 24px;
+}
