@@ -14,19 +14,28 @@ export default function SearchInput({ start, setStart, end, setEnd }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // fetch data from Nominatim geocoding
+    // fetch data from Nominatim for geocoding
     const fetchItems = async () => {
-      const result = await axios(
-        `https://nominatim.openstreetmap.org/search?q=${input_start_place}`
+      let result = await axios(
+        `https://photon.komoot.io/api/?q=${input_start_place}&limit=1`
       );
-      console.log(result.data);
+
+      setStart(`${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`)
+
+      result = await axios(
+        `https://photon.komoot.io/api/?q=${input_end_place}&limit=1`
+      );
+
+      setEnd(`${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`)
     };
+
     fetchItems();
 
-    //nominatim.openstreetmap.org/search?<params>
+    //setStart("53.552719,10.005607");
+    //setEnd("53.54145079524408,9.98413080586419");
 
-    setStart("53.552719,10.005607");
-    setEnd("53.54145079524408,9.98413080586419");
+    //setStart(result.data[0]);
+    //setEnd("53.54145079524408,9.98413080586419");
   };
 
   return (
