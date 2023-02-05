@@ -3,14 +3,14 @@ import { useState } from "react";
 import SearchInput from "../components/SearchInput/SearchInput";
 
 export default function Home() {
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
+  const [startCoords, setStartCoords] = useState(''); // coordinates in lat,lon
+  const [endCoords, setEndCoords] = useState(''); // coordinates in lat,lon
 
   return (
     <div>
       <h1>Home</h1>
-      <SearchInput setStart={setStart} setEnd={setEnd} />
-      <Map start={start} end={end} />
+      <SearchInput setStartCoords={setStartCoords} setEndCoords={setEndCoords} />
+      <Map start={startCoords} end={endCoords} />
     </div>
   );
 }

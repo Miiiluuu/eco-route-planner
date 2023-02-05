@@ -2,43 +2,55 @@ import { useState } from "react";
 import Styles from "./SearchInput.module.css";
 import axios from "axios";
 
-export default function SearchInput({ value, setValue, placeholder }) {
-  // for Autocomplete
+export default function AutoCompleteField({ value, setValue, placeholder }) {
+  const [suggestions, setSuggestions] = useState([]); // List of Autocomplete suggestions
+  const [keepListOpen, setKeepListOpen] = useState(false); // necessary for clicking somewhere that is not the suggest field
+  const [oldInput, setOldInput] = useState(""); // keep the previous  input for comparison with new input (for API throttling)
 
+  // this function sets the AutoComplete Suggestions in a readable format
   const placeMapperHelper = (p) => {
     const name = "name" in p ? p.name + ", " : "";
     const city = "city" in p ? p.city + ", " : "";
     const street = "street" in p ? p.street + ", " : "";
     const country = "country" in p ? p.country : "";
-    console.log(p)
     return `${name}${city}${street}${country}`;
-    
   };
 
-  const [suggestions, setSuggestions] = useState([]);
-
+  // if the input text changes, new suggestions for AutoComplete are fetched
   const onChangeHandler = (input) => {
     setValue(input);
-    if (input.length > 3) {
-      const fetchItems = async () => {
+    // to avoid too many API calls datas are only fetched after the user entered > 3 letters, also if the user deletes letters there will be no fetching (API throttling)
+    if (input.length > 3 && input.length > oldInput.length) {
+      const fetchSuggestions = async () => {
         let result = await axios(
-          `https://photon.komoot.io/api/?q=${input}&limit=5`
+          // API call contains location bias (hamburg airport), number of results is limited to 5
+          `https://photon.komoot.io/api/?q=${input}&limit=5&lat=53.63&lon=9.99`
         );
-
         const features = result.data.features;
-
-        if (features.length > 0) {
-          const sugg = features.map((f) => placeMapperHelper(f.properties));
-          setSuggestions(sugg);
+        if (features.length > 0) { // 0 features occurs when no places are found
+          const sugg = features.map((f, x) => placeMapperHelper(f.properties));
+          // Set() will remove repeating list elements of suggestions
+          setSuggestions([...new Set(sugg)]);
         }
       };
-      fetchItems();
+
+      fetchSuggestions();
     }
+    setOldInput(input);
   };
 
+  // if the user selects a suggestion in the drop down, this element will be used as input and the suggestion list will be emptied
   const onSuggestHandler = (input) => {
     setValue(input);
     setSuggestions([]);
+    setKeepListOpen(false); // for onBlur
+  };
+
+  // if the user leaves the input field (clicks somewhere else) the suggestion list will be emptied as well
+  const onBlurHandler = () => {
+    if (!keepListOpen) {
+      setSuggestions([]);
+    }
   };
 
   return (
@@ -50,12 +62,17 @@ export default function SearchInput({ value, setValue, placeholder }) {
         onChange={(event) => onChangeHandler(event.target.value)}
         placeholder={placeholder}
         required
-        //onBlur={() => setSuggestions([])}
+        onBlur={() => onBlurHandler()}
       />
-      {suggestions &&
-        suggestions.map((i) => (
-          <div className={Styles.suggestion} onClick={() => onSuggestHandler(i)}>
-            {i}
+      {/* each suggestion will be displayed as <div> element underneath the input field */}
+      {suggestions && /* if there are no suggestions nothing will appear*/
+        suggestions.map((suggestion, x) => (
+          <div
+            className={Styles.suggestion}
+            onMouseDown={() => setKeepListOpen(true)}
+            onClick={() => onSuggestHandler(suggestion)}
+          >
+            {suggestion}
           </div>
         ))}
     </>

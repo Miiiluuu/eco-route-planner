@@ -1,56 +1,54 @@
 import { useState } from "react";
 import Styles from "./SearchInput.module.css";
 import axios from "axios";
-import AutocompleteField from "./AutocompleteField";
+import AutoCompleteField from "./AutoCompleteField";
 
-export default function SearchInput({ setStart, setEnd }) {
+export default function SearchInput({ setStartCoords, setEndCoords }) {
+  // for geocoding
+  const [startLocation, setStartLocation] = useState("");
+  const [endLocation, setEndLocation] = useState("");
 
-  // hooks for geocoding
-  const [input_start_place, setInputStartPlace] = useState("");
-  const [input_end_place, setInputEndPlace] = useState("");
-  
-
+  // if you press submit the entered locations will be translated to coordinates (lat,lon)
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // fetch data from Nominatim for geocoding
-    const fetchItems = async () => {
-      let result = await axios(
-        `https://photon.komoot.io/api/?q=${input_start_place}&limit=1`
+    // fetch data from photon API for geocoding
+    const fetchItemsStartLocation = async () => {
+      const result = await axios(
+        `https://photon.komoot.io/api/?q=${startLocation}&limit=1`
       );
-
-      setStart(
-        `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
-      );
-
-      result = await axios(
-        `https://photon.komoot.io/api/?q=${input_end_place}&limit=1`
-      );
-      console.log(result.data);
-
-      setEnd(
+      setStartCoords(
         `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
       );
     };
 
-    fetchItems();
+    const fetchItemsEndLocation = async () => {
+      const result = await axios(
+        `https://photon.komoot.io/api/?q=${endLocation}&limit=1`
+      );
+      setEndCoords(
+        `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
+      );
+    };
 
-//TODO: Funktion schreiben, um TravelRoute anzuzeigen
+    fetchItemsStartLocation();
+    fetchItemsEndLocation();
 
+    //TODO: Funktion schreiben, um TravelRoute anzuzeigen nach Submit
   };
 
   return (
     <section className={Styles.search}>
       <form className={Styles.search_fields} onSubmit={handleSubmit}>
         <div>
-          <AutocompleteField
-            value={input_start_place}
-            setValue={setInputStartPlace}
+          <AutoCompleteField
+            value={startLocation}
+            setValue={setStartLocation}
             placeholder="from..."
           />
-          <AutocompleteField
-            value={input_end_place}
-            setValue={setInputEndPlace}
+          <AutoCompleteField
+            value={endLocation}
+            setValue={setEndLocation}
             placeholder="to..."
           />
         </div>
