@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div>
       <h1>Home</h1>
-      <SearchInput start={start} setStart={setStart} end={end} setEnd={setEnd} />
+      <SearchInput setStart={setStart} setEnd={setEnd} />
       <Map start={start} end={end} />
     </div>
   );
