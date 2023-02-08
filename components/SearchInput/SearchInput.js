@@ -10,6 +10,7 @@ export default function SearchInput({ setStartCoords, setEndCoords }) {
 
   // if you press submit the entered locations will be translated to coordinates (lat,lon)
   const handleSubmit = (event) => {
+    console.log("SearchInput: HandleSubmit");
     event.preventDefault();
 
     // fetch data from photon API for geocoding
@@ -33,8 +34,6 @@ export default function SearchInput({ setStartCoords, setEndCoords }) {
 
     fetchItemsStartLocation();
     fetchItemsEndLocation();
-
-    //TODO: Funktion schreiben, um TravelRoute anzuzeigen nach Submit
   };
 
   return (

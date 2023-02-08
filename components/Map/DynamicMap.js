@@ -7,16 +7,15 @@ import axios from "axios";
 import ShowTravelPlan from "./ShowTravelPlan";
 
 export default function DynamicMap({ start, end }) {
-  console.log('In Map:' + start)
+  console.log("DynamicMap: ganz oben " + start);
+
+  // center of map, right now coordinates of airport Hamburg
+  let center = [53.63383190811092, 9.99638283572184];
+
   // some const for data fetching:
   // currently map of hamburg is loaded
   const server =
     "http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan";
-  // start and end of the travel route will be passed in as parameters
-  const fromPlace = start;
-  const toPlace = end;
-  // center of map, right now coordinates of airport Hamburg
-  let center = [53.63383190811092, 9.99638283572184];
 
   const [plan, setPlan] = useState({});
 
@@ -49,13 +48,15 @@ export default function DynamicMap({ start, end }) {
   useEffect(() => {
     const fetchItems = async () => {
       const result = await axios(
-        `${server}?fromPlace=${fromPlace}&toPlace=${toPlace}&mode=WALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
+        `${server}?fromPlace=${start}&toPlace=${end}&mode=WALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
       );
       setPlan(result.data.plan);
+      console.log("DynamicMap: setPlan");
     };
-    fetchItems();
+    if (start && end) { // start and end are only defined after the first geocoding call (when the submit button is pressed). Only call the API with both start and end defined.
+      fetchItems();     
+    }
   }, [start, end]);
-
 
   return (
     <div>

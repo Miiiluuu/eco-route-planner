@@ -27,8 +27,9 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
           `https://photon.komoot.io/api/?q=${input}&limit=5&lat=53.63&lon=9.99`
         );
         const features = result.data.features;
+        //console.log(features)
         if (features.length > 0) { // 0 features occurs when no places are found
-          const sugg = features.map((f, x) => placeMapperHelper(f.properties));
+          const sugg = features.map((f) => placeMapperHelper(f.properties));
           // Set() will remove repeating list elements of suggestions
           setSuggestions([...new Set(sugg)]);
         }
@@ -66,11 +67,12 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
       />
       {/* each suggestion will be displayed as <div> element underneath the input field */}
       {suggestions && /* if there are no suggestions nothing will appear*/
-        suggestions.map((suggestion, x) => (
+        suggestions.map((suggestion, index) => (
           <div
             className={Styles.suggestion}
             onMouseDown={() => setKeepListOpen(true)}
             onClick={() => onSuggestHandler(suggestion)}
+            key={index}
           >
             {suggestion}
           </div>
