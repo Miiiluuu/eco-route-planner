@@ -2,11 +2,6 @@ import { useState } from "react";
 import Styles from "./SearchInput.module.css";
 import axios from "axios";
 
-export default function AutoCompleteField({ value, setValue, placeholder }) {
-  const [suggestions, setSuggestions] = useState([]); // List of Autocomplete suggestions
-  const [keepListOpen, setKeepListOpen] = useState(false); // necessary for clicking somewhere that is not the suggest field
-  const [oldInput, setOldInput] = useState(""); // keep the previous  input for comparison with new input (for API throttling)
-
   // this function sets the AutoComplete Suggestions in a readable format
   const placeMapperHelper = (p) => {
     const name = "name" in p ? p.name + ", " : "";
@@ -15,6 +10,11 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
     const country = "country" in p ? p.country : "";
     return `${name}${city}${street}${country}`;
   };
+
+export default function AutoCompleteField({ value, setValue, placeholder }) {
+  const [suggestions, setSuggestions] = useState([]); // List of Autocomplete suggestions
+  const [keepListOpen, setKeepListOpen] = useState(false); // necessary for clicking somewhere that is not the suggest field
+  const [oldInput, setOldInput] = useState(""); // keep the previous  input for comparison with new input (for API throttling)
 
   // if the input text changes, new suggestions for AutoComplete are fetched
   const onChangeHandler = (input) => {
