@@ -10,13 +10,13 @@ export function Layout(props) {
         </div>
         <nav className={Styles.nav_bar}>
           <Link className={Styles.nav_link} href="">
-            Routenplaner
+            Route planner
           </Link>
           <Link className={Styles.nav_link} href="">
-            Über uns
+            About us
           </Link>
           <Link className={Styles.nav_link} href="">
-            Anmelden
+            Login
           </Link>
         </nav>
         <div className={Styles.stripe1}></div>
