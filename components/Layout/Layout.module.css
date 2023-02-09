@@ -11,13 +11,13 @@
 
 .nav_link {
   display: inline-block;
-  color: rgb(129, 113, 93);
+  color: #05595b;
   padding: 6px;
 }
 
 .nav_link:hover {
-  background-color: #555;
-  color: #f3f2dd;
+  background-color: #05595b;
+  color: #e2d784;
 }
 
 .nav_bar {
