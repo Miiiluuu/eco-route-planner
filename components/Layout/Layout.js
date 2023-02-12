@@ -6,7 +6,7 @@ export function Layout(props) {
     <div>
       <header className={Styles.header}>
         <div className={Styles.logo}>
-          <img src="logo.png" />
+          <img src="logo.png" alt="trawell logo" />
         </div>
         <nav className={Styles.nav_bar}>
           <Link className={Styles.nav_link} href="">
