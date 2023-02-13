@@ -3,6 +3,6 @@
 import dynamic from "next/dynamic";
 const DynamicMap = dynamic(() => import("./DynamicMap"), { ssr: false });
 
-export default function Map() {
-    return <DynamicMap/>;
+export default function Map({start, end}) {
+    return <DynamicMap start={start} end={end}/>;
 }
