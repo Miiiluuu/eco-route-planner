@@ -5,15 +5,41 @@
 .input_field {
   padding: 5px;
   margin-bottom: 5px;
-  width: 50%;
+  width: 100%;
+  border: 3px solid #05595b;
+  border-radius: 5px;
+}
+
+.autocomp1 {
+  display: inline;
+  width: 400px;
+  position: absolute;
+  left: 200px;
+  z-index: +1;
+}
+
+.autocomp2 {
+  display: inline;
+  width: 400px;
+  position: absolute;
+  left: 800px;
+  right: 150px;
+  z-index: +1;
 }
 
 .submit_field {
   display: block;
-  float: right;
   padding: 5px;
+  float: right;
   width: 10%;
   cursor: pointer;
+  right: 250px;
+  border: 3px solid #05595b;
+  border-radius: 5px;
+}
+
+.submit_field:hover {
+  background-color: #f8f0b1;
 }
 
 .suggestion {
@@ -23,6 +49,7 @@
   border-left: 1px solid black;
   border-bottom: 1px solid black;
 }
+
 .suggestion:hover {
   background-color: grey;
 }

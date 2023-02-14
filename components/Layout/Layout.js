@@ -23,7 +23,7 @@ export function Layout(props) {
         <div className={Styles.stripe2}></div>
       </header>
       <main>{props.children}</main>
-      <footer>Footer</footer>
+      <footer className={Styles.footer}>Footer</footer>
     </div>
   );
 }

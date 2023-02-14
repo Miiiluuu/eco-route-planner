@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Styles from "./SearchInput.module.css";
-import axios from "axios";
-import AutoCompleteField from "./AutoCompleteField";
+import { useState } from 'react';
+import Styles from './SearchInput.module.css';
+import axios from 'axios';
+import AutoCompleteField from './AutoCompleteField';
 
 export default function SearchInput({ setStartCoords, setEndCoords }) {
   // for geocoding
-  const [startLocation, setStartLocation] = useState("");
-  const [endLocation, setEndLocation] = useState("");
+  const [startLocation, setStartLocation] = useState('');
+  const [endLocation, setEndLocation] = useState('');
 
   // if you press submit the entered locations will be translated to coordinates (lat,lon)
-  const handleSubmit = (event) => {
-    console.log("SearchInput: HandleSubmit");
+  const handleSubmit = event => {
+    console.log('SearchInput: HandleSubmit');
     event.preventDefault();
 
     // fetch data from photon API for geocoding
@@ -39,12 +39,15 @@ export default function SearchInput({ setStartCoords, setEndCoords }) {
   return (
     <section className={Styles.search}>
       <form className={Styles.search_fields} onSubmit={handleSubmit}>
-        <div>
+        <div className={Styles.autocomp1}>
           <AutoCompleteField
             value={startLocation}
             setValue={setStartLocation}
             placeholder="from..."
           />
+        </div>
+
+        <div className={Styles.autocomp2}>
           <AutoCompleteField
             value={endLocation}
             setValue={setEndLocation}
