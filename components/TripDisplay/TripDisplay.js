@@ -1,6 +1,16 @@
 import { useState } from 'react';
 import Styles from './TripDisplay.module.css';
 
+// this function extracts informations from the individually legs of the travel plan
+const ExtractInfo = leg => {
+  console.log("Info leg", leg)
+  const legMode = 'mode' in leg ? leg.mode : '';
+  const time = 'duration' in leg ? leg.duration : '';
+  console.log("Modus", legMode);
+  console.log("duration", time);
+  return `${legMode}`;
+};
+
 export default function TripDisplay({ planBicycle, planCar, planTransit }) {
   const [show, setShow] = useState(false); // hook to show the details of the trip
 
@@ -31,14 +41,24 @@ export default function TripDisplay({ planBicycle, planCar, planTransit }) {
             <img src="leaf_icon.png" alt="leaf icon" />
           </div>
           <div className={Styles.icon_transportation_time}>
-            <img src="transit_icon.png" alt="leaf icon" />
+            <img src="transit_icon.png" alt="transit icon" />
             <div className={Styles.trip_time}>
-              {`${Math.round((planTransit.itineraries?.[0]?.duration)/60)} min`}
+              {`${Math.round(planTransit.itineraries?.[0]?.duration / 60)} min`}
             </div>
           </div>
           <div className={Styles.trip_overview}>
             <div className={Styles.circle}></div>
-            <div className={Styles.line}></div>
+
+            {planTransit.itineraries?.[1]?.legs.map((leg, index) => (
+              <>
+              <ExtractInfo leg={leg}/>
+                <div className={`${Styles.mode} line`} key={index}>
+                  test
+                </div>
+              </>
+            ))}
+
+            {/* <div className={Styles.line}></div> */}
             <div className={Styles.circle}></div>
           </div>
         </div>
