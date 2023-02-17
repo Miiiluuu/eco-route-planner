@@ -1,35 +1,45 @@
-import { useState } from "react";
-import Styles from "./SearchInput.module.css";
-import axios from "axios";
-import AutoCompleteField from "./AutoCompleteField";
+import { useState } from 'react';
+import Styles from './SearchInput.module.css';
+import axios from 'axios';
+import AutoCompleteField from './AutoCompleteField';
 
 export default function SearchInput({ setStartCoords, setEndCoords }) {
   // for geocoding
-  const [startLocation, setStartLocation] = useState("");
-  const [endLocation, setEndLocation] = useState("");
+  const [startLocation, setStartLocation] = useState('');
+  const [endLocation, setEndLocation] = useState('');
 
   // if you press submit the entered locations will be translated to coordinates (lat,lon)
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     //console.log("SearchInput: HandleSubmit");
     event.preventDefault();
 
     // fetch data from photon API for geocoding
     const fetchItemsStartLocation = async () => {
-      const result = await axios(
-        `https://photon.komoot.io/api/?q=${startLocation}&limit=1`
-      );
-      setStartCoords(
-        `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
-      );
+      try {
+        const result = await axios(
+          `https://photon.komoot.io/api/?q=${startLocation}&limit=1`
+        );
+        setStartCoords(
+          `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
+        );
+      } catch (error) {
+        // TypeError: Failed to fetch
+        console.log('There was an error', error);
+      }
     };
 
     const fetchItemsEndLocation = async () => {
-      const result = await axios(
-        `https://photon.komoot.io/api/?q=${endLocation}&limit=1`
-      );
-      setEndCoords(
-        `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
-      );
+      try {
+        const result = await axios(
+          `https://photon.komoot.io/api/?q=${endLocation}&limit=1`
+        );
+        setEndCoords(
+          `${result.data.features[0].geometry.coordinates[1]},${result.data.features[0].geometry.coordinates[0]}`
+        );
+      } catch (error) {
+        // TypeError: Failed to fetch
+        console.log('There was an error', error);
+      }
     };
 
     fetchItemsStartLocation();

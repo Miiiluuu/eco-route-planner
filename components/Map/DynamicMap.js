@@ -2,24 +2,13 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import Styles from './Map.module.css';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import ShowTravelPlan from './ShowTravelPlan';
 
-export default function DynamicMap({ start, end }) {
+export default function DynamicMap({ planBicycle }) {
   //console.log("DynamicMap: ganz oben " + start);
 
   // center of map, right now coordinates of airport Hamburg
   let center = [53.63383190811092, 9.99638283572184];
-
-  // some const for data fetching:
-  // currently map of hamburg is loaded
-  const server =
-    'http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan';
-
-  const [planBicycle, setPlanBicycle] = useState({}); // hook for saving travel plan via BICYLE
-  const [planCar, setPlanCar] = useState({}); // hook for saving travel plan via CAR
-  const [planTransit, setPlanTransit] = useState({}); // hook for saving travel plan via TRANSIT
 
   // definition of start and stop marker image/size
   const fromIcon = L.icon({
@@ -46,46 +35,7 @@ export default function DynamicMap({ start, end }) {
     //popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
-  // fetch data from OTP server
-  useEffect(() => {
-    // API call by BICYCLE
-    const fetchItemsTripByBicycle = async () => {
-      const result = await axios(
-        `${server}?fromPlace=${start}&toPlace=${end}&mode=BICYCLE&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
-      );
-      setPlanBicycle(result.data.plan);
-      console.log('DynamicMap Trip by BICYCLE:', result.data);
-      //console.log("DynamicMap: setPlan BICYCLE");
-    };
-
-    // API call by CAR
-    const fetchItemsTripByCar = async () => {
-      const result = await axios(
-        `${server}?fromPlace=${start}&toPlace=${end}&mode=CAR&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
-      );
-      setPlanCar(result.data.plan);
-      console.log('DynamicMap Trip by CAR:', result.data);
-      //console.log("DynamicMap: setPlan CAR");
-    };
-
-    // API call by TRANSIT
-    const fetchItemsTripByTransit = async () => {
-      const result = await axios(
-        `${server}?fromPlace=${start}&toPlace=${end}&mode=TRANSIT%2CWALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1&filterItinerariesWithSameFirstOrLastTrip=true&numItineraries=7`
-      );  // only 7 Itineraries are returned, some of them are doubled, needs to be filtered later
-      setPlanTransit(result.data.plan);
-      console.log('DynamicMap Trip by TRANSIT:', result.data);
-      //console.log("DynamicMap: setPlan TRANSIT");
-    };
-
-    if (start && end) {
-      // start and end are only defined after the first geocoding call (when the submit button is pressed). Only call the API with both start and end defined.
-      fetchItemsTripByBicycle();
-      fetchItemsTripByCar();
-      fetchItemsTripByTransit();
-    }
-  }, [start, end]);
-
+  
   return (
     <div>
       {/* Embedding of Leaflet map */}

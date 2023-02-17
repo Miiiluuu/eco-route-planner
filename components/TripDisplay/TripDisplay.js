@@ -1,64 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Styles from './TripDisplay.module.css';
-import axios from 'axios';
 
-export default function TripDisplay({ start, end }) {
+export default function TripDisplay({ planBicycle, planCar, planTransit }) {
   const [show, setShow] = useState(false); // hook to show the details of the trip
-  const [planBicycle, setPlanBicycle] = useState({}); // hook for saving travel plan via BICYLE
-  const [planCar, setPlanCar] = useState({}); // hook for saving travel plan via CAR
-  const [planTransit, setPlanTransit] = useState({}); // hook for saving travel plan via TRANSIT
-
-  // fetch data from OTP server
-  // currently map of hamburg is loaded
-  const server =
-    'http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan';
-
-  useEffect(() => {
-    // API call by BICYCLE
-    const fetchItemsTripByBicycle = async () => {
-      const result = await axios(
-        `${server}?fromPlace=${start}&toPlace=${end}&mode=BICYCLE&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
-      );
-      setPlanBicycle(result.data.plan);
-      console.log('TripDisplay: Trip by BICYCLE:', result.data);
-      //console.log("TripDisplay: setPlan BICYCLE");
-    };
-
-    // API call by CAR
-    const fetchItemsTripByCar = async () => {
-      const result = await axios(
-        `${server}?fromPlace=${start}&toPlace=${end}&mode=CAR&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
-      );
-      setPlanCar(result.data.plan);
-      console.log('TripDisplay: Trip by CAR:', result.data);
-      //console.log("TripDisplay: setPlan CAR");
-    };
-
-    // API call by TRANSIT
-    const fetchItemsTripByTransit = async () => {
-      const result = await axios(
-        `${server}?fromPlace=${start}&toPlace=${end}&mode=TRANSIT%2CWALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1&filterItinerariesWithSameFirstOrLastTrip=true&numItineraries=7`
-      ); // only 7 Itineraries are returned, some of them are doubled, needs to be filtered later
-      setPlanTransit(result.data.plan);
-      console.log('TripDisplay: Trip by TRANSIT:', result.data);
-      console.log('planTransit: ', planTransit);
-      //console.log("TripDisplay: setPlan TRANSIT");
-    };
-
-    if (start && end) {
-      // start and end are only defined after the first geocoding call (when the submit button is pressed). Only call the API with both start and end defined.
-      fetchItemsTripByBicycle();
-      fetchItemsTripByCar();
-      fetchItemsTripByTransit();
-    }
-  }, [start, end]);
 
   // if the user clicks on a trip then more details are shown and the route is displayed on the map
   const onSuggestHandler = () => {
-    setShow(true);
+    setShow(!show);
   };
 
-  if (start && end) {
+  if (
+    typeof planTransit != 'undefined' &&
+    typeof planCar != 'undefined' &&
+    typeof planBicycle != 'undefined' &&
+    Object.keys(planTransit).length > 0 &&
+    Object.keys(planCar).length > 0 &&
+    Object.keys(planBicycle).length > 0
+  ) {
+    // just show this element if all informations are fetched (maybe there is a shorter way to express that?)
     return (
       <>
         <div
@@ -74,10 +33,7 @@ export default function TripDisplay({ start, end }) {
           <div className={Styles.icon_transportation_time}>
             <img src="transit_icon.png" alt="leaf icon" />
             <div className={Styles.trip_time}>
-              {/* 20 min */}
-              {'itineraries' in planTransit
-                ? `${planTransit.itineraries[0].duration}`
-                : null}
+              {`${Math.round((planTransit.itineraries?.[0]?.duration)/60)} min`}
             </div>
           </div>
           <div className={Styles.trip_overview}>
