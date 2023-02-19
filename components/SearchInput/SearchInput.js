@@ -39,23 +39,25 @@ export default function SearchInput({ setStartCoords, setEndCoords }) {
   return (
     <section className={Styles.search}>
       <form className={Styles.search_fields} onSubmit={handleSubmit}>
-        <div className={Styles.autocomp1}>
-          <AutoCompleteField
-            value={startLocation}
-            setValue={setStartLocation}
-            placeholder="from..."
-          />
-        </div>
+        <div className={Styles.input_container}>
+          <div className={Styles.autocomp}>
+            <AutoCompleteField
+              value={startLocation}
+              setValue={setStartLocation}
+              placeholder="from..."
+            />
+          </div>
 
-        <div className={Styles.autocomp2}>
-          <AutoCompleteField
-            value={endLocation}
-            setValue={setEndLocation}
-            placeholder="to..."
-          />
+          <div className={Styles.autocomp}>
+            <AutoCompleteField
+              value={endLocation}
+              setValue={setEndLocation}
+              placeholder="to..."
+            />
+          </div>
         </div>
         <button type="submit" className={Styles.submit_field}>
-          Search Routes
+          Plan your trip!
         </button>
       </form>
     </section>

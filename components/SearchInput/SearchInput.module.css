@@ -1,45 +1,38 @@
 .search_fields {
-  margin: 20px;
+  margin: 20px 0;
+}
+
+.input_container {
+  display: flex;
 }
 
 .input_field {
   padding: 5px;
   margin-bottom: 5px;
-  width: 100%;
   border: 3px solid #05595b;
   border-radius: 5px;
+  width: 100%;
 }
 
-.autocomp1 {
-  display: inline;
-  width: 400px;
-  position: absolute;
-  left: 200px;
-  z-index: +1;
-}
-
-.autocomp2 {
-  display: inline;
-  width: 400px;
-  position: absolute;
-  left: 800px;
-  right: 150px;
-  z-index: +1;
+.autocomp {
+  width: 100%;
 }
 
 .submit_field {
   display: block;
   padding: 5px;
-  float: right;
-  width: 10%;
+  width: 30%;
   cursor: pointer;
-  right: 250px;
   border: 3px solid #05595b;
   border-radius: 5px;
+  background-color: #f8f0b1;
+  float: right;
 }
 
 .submit_field:hover {
   background-color: #f8f0b1;
+  color: #05595b;
+  font-size: 110%;
 }
 
 .suggestion {
@@ -48,8 +41,20 @@
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
+  background-color: white;
 }
 
 .suggestion:hover {
   background-color: grey;
+}
+
+.autocomp_container {
+  position: relative;
+}
+
+.suggestion_container {
+  position: absolute;
+  top: 30px;
+  z-index: 1001;
+  width: 100%;
 }
