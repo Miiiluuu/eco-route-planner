@@ -1,22 +1,30 @@
 .background{
     background-color: #05595B;
     width: 100%; 
+    padding: 10% 30% 30% 10%;
 }
 .text-background{
     background-color: #FFFFFF;
-    margin: 0 auto;
-    padding: 10px;
-    display: inline-block;
+    padding: 50px;
 }
 
 .h1-about{
     color:#062C30;
     font-family: roboto, helvetica, arial;
     font-size: 48px;
+    padding:10px ;
 }
 
 .p-about{
     color:#062C30;
     font-family: roboto, helvetica, arial;
     font-size: 24px;
+    padding:10px;
 }
+
+.footer{
+    width: 100%; 
+    background-color:#E2D784;
+    height: 20px;
+}
+
