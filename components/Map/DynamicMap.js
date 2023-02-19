@@ -4,16 +4,18 @@ import Styles from "./Map.module.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ShowTravelPlan from "./ShowTravelPlan"
+import ShowTravelPlan from "./ShowTravelPlan";
 
-export default function DynamicMap() {
-  // some const for data fetching:
-  // currently map of hamburg is loaded
-  const server ="http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan";
-  const fromPlace = "53.552719,10.005607";                  // main station Hamburg
-  const toPlace = "53.54145079524408,9.98413080586419";     // Elbphilharmonie Hamburg
+export default function DynamicMap({ start, end }) {
+  console.log("DynamicMap: ganz oben " + start);
+
   // center of map, right now coordinates of airport Hamburg
   let center = [53.63383190811092, 9.99638283572184];
+
+  // some const for data fetching:
+  // currently map of hamburg is loaded
+  const server =
+    "http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan";
 
   const [plan, setPlan] = useState({});
 
@@ -46,13 +48,15 @@ export default function DynamicMap() {
   useEffect(() => {
     const fetchItems = async () => {
       const result = await axios(
-        `${server}?fromPlace=${fromPlace}&toPlace=${toPlace}&mode=WALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
+        `${server}?fromPlace=${start}&toPlace=${end}&mode=WALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1`
       );
       setPlan(result.data.plan);
+      console.log("DynamicMap: setPlan");
     };
-    fetchItems();
-  }, []);
-
+    if (start && end) { // start and end are only defined after the first geocoding call (when the submit button is pressed). Only call the API with both start and end defined.
+      fetchItems();     
+    }
+  }, [start, end]);
 
   return (
     <div>
