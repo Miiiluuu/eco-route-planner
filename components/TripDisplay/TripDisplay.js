@@ -1,6 +1,39 @@
 import { useState, Fragment } from 'react';
 import Styles from './TripDisplay.module.css';
 
+// function to extract Date (old format: Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time), new format day/month/year)
+const extractJustDate = date => {
+  const month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  let year = date.getFullYear();
+  let day = date.getDate();
+  let month_name = month[date.getMonth()];
+  return `${day}/${month_name}/${year}`;
+};
+
+// function to extract Time (old format: Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time), new format hour:minutes)
+const extractJustTime = date => {
+  let hour = date.getHours();
+  let minutes = date.getMinutes();
+  console.log(typeof minutes);
+  if (minutes.toString().length < 2) {
+    minutes = `${0}${minutes}`;
+  }
+  return `${hour}:${minutes}`;
+};
+
 // this function extracts informations from the individually legs of the travel plan
 const extractInfo = info => {
   console.log('Info leg', info);
@@ -11,10 +44,26 @@ const extractInfo = info => {
   return 'test';
 };
 
-export default function TripDisplay({ planBicycle, planCar, planTransit }) {
+export default function TripDisplay({
+  planBicycle,
+  planCar,
+  planTransit,
+  startLocationInput,
+  endLocationInput,
+}) {
   const [show, setShow] = useState(false); // hook to show the details of the trip
-  // some features:
+
+  // some features of the trip !No1!:
   const duration = planTransit.itineraries?.[1]?.duration; // duration transit trip No1 in sec
+  const startTimeFull = new Date( // startTime transit trip No1 (format: eg. Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time))
+    parseInt(planTransit.itineraries?.[1]?.startTime)
+  );
+  const endTimeFull = new Date(parseInt(planTransit.itineraries?.[1]?.endTime)); // endTime transit trip No1 (format: eg. Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time))
+  const transfers = planTransit.itineraries?.[1]?.transfers; // transfers of transit trip No1
+
+  const date = extractJustDate(startTimeFull); // in day/month/year
+  const startTime = extractJustTime(startTimeFull); // in h:min
+  const endTime = extractJustTime(endTimeFull); // in h:min
 
   // if the user clicks on a trip then more details are shown and the route is displayed on the map
   const onSuggestHandler = () => {
@@ -53,8 +102,8 @@ export default function TripDisplay({ planBicycle, planCar, planTransit }) {
             </div>
           </div>
 
-          {/* trip overview */}
-          <div className={Styles.trip_overview}>
+          {/* trip outline */}
+          <div className={Styles.trip_outline}>
             {planTransit.itineraries?.[1]?.legs.map((leg, index) => {
               extractInfo(leg);
               console.log('Mode inside JSX: ', leg.mode);
@@ -96,7 +145,50 @@ export default function TripDisplay({ planBicycle, planCar, planTransit }) {
           </div>
         </div>
 
-        {show && <div className={Styles.trip_details}>show details!!!</div>}
+        {/* {show && ( // if show is true then more details are shown*/}
+        <div className={Styles.connection_details}>
+          {/* a short summary of the connection follows */}
+          <div className={Styles.connection_info}>
+            <div className={Styles.connection_header}>
+              <div className={Styles.connection_date}> {`${date}`} </div>
+              <div className={Styles.connection_time_and_location}>
+                <div className={Styles.times}>
+                  <div className={Styles.connection_departure}>
+                    {`${startTime}`}
+                  </div>
+                  <div className={Styles.connection_arrival}>
+                    {`${endTime}`}
+                  </div>
+                </div>
+                <div className={Styles.connection_locations}>
+                  <div>{`${startLocationInput}`}</div>
+                  <div>{`${endLocationInput}`}</div>
+                </div>
+              </div>
+              <div className={Styles.connection_summary}>
+                <span className={Styles.icon_transportation}>
+                  <img src="transit_icon.svg" alt="transit icon" />
+                </span>
+                <span className={Styles.connection_duration}>
+                  <span className={Styles.icon_clock}>
+                    <img src="clock_icon.svg" alt="clock icon" />
+                  </span>
+                  {`${Math.round(duration / 60)} min`}
+                </span>
+                <span className={Styles.connection_interchanges}>
+                  <span className={Styles.icon_transfer}>
+                    <img src="transfer_icon.svg" alt="transfer icon" />
+                  </span>
+                  {`${transfers}${transfers != 1 ? ' Umstiege' : ' Umstieg'}`}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* a detailed outline of the connection follows */}
+          <div>more details coming!!!</div>
+        </div>
+        {/*    )} */}
       </>
     );
   }

@@ -8,6 +8,9 @@ export default function Home() {
   const [startCoords, setStartCoords] = useState(''); // coordinates in lat,lon
   const [endCoords, setEndCoords] = useState(''); // coordinates in lat,lon
 
+  const [startLocationInput, setStartLocationInput] = useState(''); // this hook is to save the startLocation the user searched for
+  const [endLocationInput, setEndLocationInput] = useState(''); // this hook is to save the endLocation the user searched for
+
   const [planBicycle, setPlanBicycle] = useState({}); // hook for saving travel plan via BICYLE
   const [planCar, setPlanCar] = useState({}); // hook for saving travel plan via CAR
   const [planTransit, setPlanTransit] = useState({}); // hook for saving travel plan via TRANSIT
@@ -77,12 +80,16 @@ export default function Home() {
       <SearchInput
         setStartCoords={setStartCoords}
         setEndCoords={setEndCoords}
+        setStartLocationInput={setStartLocationInput}
+        setEndLocationInput={setEndLocationInput}
       />
       <Map planBicycle={planBicycle} />
       <TripDisplay
         planBicycle={planBicycle}
         planCar={planCar}
         planTransit={planTransit}
+        startLocationInput={startLocationInput}
+        endLocationInput={endLocationInput}
       />
     </div>
   );

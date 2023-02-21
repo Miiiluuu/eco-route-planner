@@ -3,7 +3,7 @@ import Styles from './SearchInput.module.css';
 import axios from 'axios';
 import AutoCompleteField from './AutoCompleteField';
 
-export default function SearchInput({ setStartCoords, setEndCoords }) {
+export default function SearchInput({ setStartCoords, setEndCoords, setStartLocationInput, setEndLocationInput }) {
   // for geocoding
   const [startLocation, setStartLocation] = useState('');
   const [endLocation, setEndLocation] = useState('');
@@ -12,6 +12,9 @@ export default function SearchInput({ setStartCoords, setEndCoords }) {
   const handleSubmit = event => {
     //console.log("SearchInput: HandleSubmit");
     event.preventDefault();
+
+    setStartLocationInput(startLocation); // sets and save the startLocation when the user press submit
+    setEndLocationInput(endLocation); // sets and save the endLocation when the user press submit
 
     // fetch data from photon API for geocoding
     const fetchItemsStartLocation = async () => {

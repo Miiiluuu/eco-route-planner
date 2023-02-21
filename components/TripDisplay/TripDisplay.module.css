@@ -29,7 +29,7 @@
   width: 100%;
 }
 
-.trip_overview {
+.trip_outline {
   display: flex;
   width: 60%;
   align-items: center;
@@ -62,10 +62,10 @@
 
 .icon_transportation_time img {
   width: 15px;
-height: auto;
+  height: auto;
 }
 
-.transportation_icon{
+.transportation_icon {
   width: 22px;
   padding: 4px;
   /* background: #062c30;
@@ -74,11 +74,89 @@ height: auto;
 }
 
 .transportation_icon_container {
-
-  z-index: 1; 
-  display: flex; 
+  z-index: 1;
+  display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   background: #062c30;
-  border-radius: 40%; 
+  border-radius: 40%;
 }
+
+.connection_details {
+  /* display: flex; */
+}
+
+.connection_info {
+  height: 150px;
+  /* flex: 0 0 auto; */
+  margin: 0;
+  padding: 16px 24px;
+  font-weight: 300;
+  border-bottom: 1px solid #4971e7;
+}
+
+.connection_date {
+  font-weight: bold;
+  font-size: 120%;
+  padding-top: 8px;
+  margin-bottom: 10px;
+}
+
+.connection_time_and_location {
+  display: flex;
+}
+
+.times {
+  font-weight: 700;
+  text-align: right;
+  padding-right: 10px;
+  flex: 0 0 auto;
+}
+
+.connection_summary {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+}
+
+.icon_transportation {
+  display: inline-flex;
+  margin-right: 20px;
+}
+
+.icon_transportation img {
+  width: 20px;
+  height: auto;
+}
+
+.connection_duration {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.icon_clock {
+  margin-right: 5px;
+}
+
+.icon_clock img {
+  width: 20px;
+  height: auto;
+}
+
+.connection_interchanges {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon_transfer {
+  margin-right: 5px;
+}
+
+.icon_transfer img {
+  width: 20px;
+  height: auto;
+}
+
+
