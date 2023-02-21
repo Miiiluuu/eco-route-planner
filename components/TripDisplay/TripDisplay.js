@@ -186,7 +186,62 @@ export default function TripDisplay({
           </div>
 
           {/* a detailed outline of the connection follows */}
-          <div>more details coming!!!</div>
+          <div className={Styles.connection_journey}>
+            {planTransit.itineraries?.[1]?.legs.map((leg, index) => {
+              //extractInfo(leg);
+              //console.log('Mode inside JSX: ', leg.mode);
+              return (
+                <Fragment key={index}>
+                  <div className={Styles.journey_details}>
+                    <div className={Styles.journey_header}>
+                      <div className={Styles.top_border}></div>
+                      <div className={Styles.journey_icon_container}>
+                        <img
+                          className={Styles.journey_icon}
+                          src={
+                            leg.mode == 'WALK'
+                              ? 'walk_icon.svg'
+                              : 'transit_icon.svg'
+                          }
+                          alt="transportation icon"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={Styles.first_stop}>
+                      <div className={Styles.stop_past}>
+                        <div className={Styles.time}>
+                          <span className={Styles.past}>16:00</span>
+                        </div>
+                        <div className={Styles.delay}></div>
+                        <div className={Styles.station}>Grindelhof</div>
+                      </div>
+                    </div>
+                    <div className={Styles.journey_direction}>
+                      <span className={Styles.direction}>
+                        <span className={Styles.icon_arrow}>
+                          <img src="arrow_icon.svg" alt="arrow icon" />
+                          Hauptbahnhof Hbf/ZOB
+                        </span>
+                      </span>
+                    </div>
+                    <div className={Styles.journey_intermediate_stops}>
+                      Fahrt 1 Station (4min)
+                    </div>
+                    <div className={Styles.last_stop}>
+                      <div className={Styles.stop_past}>
+                        <div className={Styles.time}>
+                          <span className={Styles.past}>16:30</span>
+                        </div>
+                        <div className={Styles.delay}></div>
+                        <div className={Styles.station}>Bf. Dammtor</div>
+                      </div>
+                    </div>
+                  </div>
+                </Fragment>
+              );
+            })}
+          </div>
         </div>
         {/*    )} */}
       </>
