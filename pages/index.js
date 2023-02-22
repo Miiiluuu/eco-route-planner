@@ -55,8 +55,8 @@ export default function Home() {
     const fetchItemsTripByTransit = async () => {
       try {
         const result = await axios(
-          `${server}?fromPlace=${startCoords}&toPlace=${endCoords}&mode=TRANSIT%2CWALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1&filterItinerariesWithSameFirstOrLastTrip=true&numItineraries=7`
-        ); // only 7 Itineraries are returned, some of them are doubled, needs to be filtered later
+          `${server}?fromPlace=${startCoords}&toPlace=${endCoords}&mode=TRANSIT%2CWALK&showIntermediateStops=true&maxStopToShapeSnapDistance=1&filterItinerariesWithSameFirstOrLastTrip=true&numItineraries=3`
+        ); // only 3 Itineraries are returned
         setPlanTransit(result.data.plan);
         console.log('index.js: Trip by TRANSIT:', result.data);
         //console.log("index.js: setPlan TRANSIT");

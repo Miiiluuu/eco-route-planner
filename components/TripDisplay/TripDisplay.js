@@ -1,7 +1,7 @@
 import { useState, Fragment } from 'react';
 import Styles from './TripDisplay.module.css';
 
-// function to extract Date (old format: Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time), new format day/month/year)
+// function to extract Date (old format is integer value representing the number of milliseconds since January 1, 1970, 00:00:00 UTC, new format is day/month/year)
 const extractJustDate = date => {
   const month = [
     'January',
@@ -17,17 +17,18 @@ const extractJustDate = date => {
     'November',
     'December',
   ];
-  let year = date.getFullYear();
-  let day = date.getDate();
-  let month_name = month[date.getMonth()];
+  const date_full = new Date(parseInt(date)); // changes format to eg. Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time))
+  let year = date_full.getFullYear();
+  let day = date_full.getDate();
+  let month_name = month[date_full.getMonth()];
   return `${day}/${month_name}/${year}`;
 };
 
-// function to extract Time (old format: Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time), new format hour:minutes)
+// function to extract Time (old format is integer value representing the number of milliseconds since January 1, 1970, 00:00:00 UTC, new format is hour:minutes)
 const extractJustTime = date => {
-  let hour = date.getHours();
-  let minutes = date.getMinutes();
-  console.log(typeof minutes);
+  const date_full = new Date(parseInt(date)); // changes format to eg. Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time))
+  let hour = date_full.getHours();
+  let minutes = date_full.getMinutes();
   if (minutes.toString().length < 2) {
     minutes = `${0}${minutes}`;
   }
@@ -53,17 +54,12 @@ export default function TripDisplay({
 }) {
   const [show, setShow] = useState(false); // hook to show the details of the trip
 
-  // some features of the trip !No1!:
+  // some features of the transit trip !No1!:
   const duration = planTransit.itineraries?.[1]?.duration; // duration transit trip No1 in sec
-  const startTimeFull = new Date( // startTime transit trip No1 (format: eg. Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time))
-    parseInt(planTransit.itineraries?.[1]?.startTime)
-  );
-  const endTimeFull = new Date(parseInt(planTransit.itineraries?.[1]?.endTime)); // endTime transit trip No1 (format: eg. Tue Feb 21 2023 15:08:59 GMT+0100 (Central European Standard Time))
   const transfers = planTransit.itineraries?.[1]?.transfers; // transfers of transit trip No1
-
-  const date = extractJustDate(startTimeFull); // in day/month/year
-  const startTime = extractJustTime(startTimeFull); // in h:min
-  const endTime = extractJustTime(endTimeFull); // in h:min
+  const date = extractJustDate(planTransit.itineraries?.[1]?.startTime); // in day/month/year
+  const startTime = extractJustTime(planTransit.itineraries?.[1]?.startTime); // in h:min
+  const endTime = extractJustTime(planTransit.itineraries?.[1]?.endTime); // in h:min
 
   // if the user clicks on a trip then more details are shown and the route is displayed on the map
   const onSuggestHandler = () => {
@@ -105,8 +101,8 @@ export default function TripDisplay({
           {/* trip outline */}
           <div className={Styles.trip_outline}>
             {planTransit.itineraries?.[1]?.legs.map((leg, index) => {
-              extractInfo(leg);
-              console.log('Mode inside JSX: ', leg.mode);
+              //extractInfo(leg);
+              //console.log('Mode inside JSX: ', leg.mode);
               return (
                 <Fragment key={index}>
                   <div className={Styles.transportation_icon_container}>
@@ -145,7 +141,7 @@ export default function TripDisplay({
           </div>
         </div>
 
-        {/* {show && ( // if show is true then more details are shown*/}
+        {show && ( // if show is true then more details are shown
         <div className={Styles.connection_details}>
           {/* a short summary of the connection follows */}
           <div className={Styles.connection_info}>
@@ -179,7 +175,7 @@ export default function TripDisplay({
                   <span className={Styles.icon_transfer}>
                     <img src="transfer_icon.svg" alt="transfer icon" />
                   </span>
-                  {`${transfers}${transfers != 1 ? ' Umstiege' : ' Umstieg'}`}
+                  {`${transfers}${transfers != 1 ? ' transfers' : ' transfer'}`}
                 </span>
               </div>
             </div>
@@ -192,58 +188,97 @@ export default function TripDisplay({
               //console.log('Mode inside JSX: ', leg.mode);
               return (
                 <Fragment key={index}>
-                  <div className={Styles.journey_details}>
+                  <div className={`${leg.mode}`}>
+                    {/* inline styling with Styled JSX (CSS-in-JS library) */}
+                    <style jsx>{`
+                      .${leg.mode} {
+                        border-left: ${leg.mode == 'WALK'
+                          ? '5px solid #e2d784'
+                          : '5px solid #4CAF50'};
+                      }
+                    `}</style>
                     <div className={Styles.journey_header}>
-                      <div className={Styles.top_border}></div>
                       <div className={Styles.journey_icon_container}>
                         <img
                           className={Styles.journey_icon}
                           src={
                             leg.mode == 'WALK'
-                              ? 'walk_icon.svg'
-                              : 'transit_icon.svg'
+                              ? 'walk_icon.png'
+                              : 'transit_icon.png'
                           }
                           alt="transportation icon"
                         />
                       </div>
+                      <div className={Styles.top_border}></div>
                     </div>
-
                     <div className={Styles.first_stop}>
                       <div className={Styles.stop_past}>
                         <div className={Styles.time}>
-                          <span className={Styles.past}>16:00</span>
+                          <span className={Styles.past}>
+                            {`${extractJustTime(leg.startTime)}`}{' '}
+                          </span>
                         </div>
                         <div className={Styles.delay}></div>
-                        <div className={Styles.station}>Grindelhof</div>
+                        <div className={Styles.station}>{`${
+                          leg.from.name == 'Origin'
+                            ? startLocationInput
+                            : leg.from.name
+                        }`}</div>
                       </div>
                     </div>
-                    <div className={Styles.journey_direction}>
-                      <span className={Styles.direction}>
-                        <span className={Styles.icon_arrow}>
-                          <img src="arrow_icon.svg" alt="arrow icon" />
-                          Hauptbahnhof Hbf/ZOB
-                        </span>
-                      </span>
-                    </div>
-                    <div className={Styles.journey_intermediate_stops}>
-                      Fahrt 1 Station (4min)
-                    </div>
+                    {leg.mode != 'WALK' ? (
+                      <div className={Styles.transit_specific_details}>
+                        <div className={Styles.journey_direction}>
+                          <span className={Styles.direction}>
+                            <span className={Styles.icon_arrow}>
+                              <img src="arrow_icon.svg" alt="arrow icon" />
+                              <span className={Styles.route_short_name}>
+                                {leg.routeShortName}
+                              </span>
+                              {leg.headsign}
+                            </span>
+                          </span>
+                        </div>
+                        <div className={Styles.journey_intermediate_stops}>
+                          {`${leg.mode} (${leg.intermediateStops.length + 1} ${
+                            leg.intermediateStops.length != 0
+                              ? ' stations'
+                              : ' station'
+                          } / ${Math.round(leg.duration / 60)} min)`}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className={Styles.walk_specific_details}>
+                        <div className={Styles.journey_walk_specification}>
+                          {`${leg.mode} (${Math.round(
+                            leg.distance
+                          )} m / ${Math.round(leg.duration / 60)} min)`}
+                        </div>
+                      </div>
+                    )}
                     <div className={Styles.last_stop}>
                       <div className={Styles.stop_past}>
                         <div className={Styles.time}>
-                          <span className={Styles.past}>16:30</span>
+                          <span className={Styles.past}>{`${extractJustTime(
+                            leg.endTime
+                          )}`}</span>
                         </div>
                         <div className={Styles.delay}></div>
-                        <div className={Styles.station}>Bf. Dammtor</div>
+                        <div className={Styles.station}>{`${
+                          leg.to.name == 'Destination'
+                            ? endLocationInput
+                            : leg.to.name
+                        }`}</div>
                       </div>
                     </div>
                   </div>
                 </Fragment>
               );
             })}
+            <div className={Styles.circle_black}></div>
           </div>
         </div>
-        {/*    )} */}
+           )}
       </>
     );
   }

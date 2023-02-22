@@ -50,6 +50,10 @@
   height: 30px;
 }
 
+.icon_leafs img {
+  padding: 1px;
+}
+
 .icon_transportation_time {
   display: flex;
   flex-direction: column;
@@ -66,7 +70,6 @@
 }
 
 .transportation_icon {
-  width: 22px;
   padding: 4px;
   /* background: #062c30;
   border-radius: 40%;
@@ -75,11 +78,14 @@
 
 .transportation_icon_container {
   z-index: 1;
+  padding: 1px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   background: #062c30;
-  border-radius: 40%;
+  border-bottom-left-radius: 50% 25%;
+  border-bottom-right-radius: 50% 25%;
+  border-top-left-radius: 50% 25%;
+  border-top-right-radius: 50% 25%;
+  height: 32px;
 }
 
 .connection_details {
@@ -169,7 +175,6 @@
   width: 100%;
   min-height: 5em;
   padding: 29px 0 5px 32px;
-  border-left: 2px solid orange;
 }
 
 .journey_header {
@@ -177,9 +182,8 @@
 }
 
 .top_border {
-  position: absolute;
+  position: relative;
   top: 15px;
-  left: 0;
   width: 100%;
   border-top: 1px solid grey;
   z-index: -10;
@@ -221,12 +225,13 @@
 .journey_direction {
   font-weight: 300;
   color: #888;
-  padding-left: 2px;
+  padding-left: 15px;
   position: relative;
 }
 
 .icon_arrow {
   display: inline-flex;
+  align-items: flex-end;
 }
 
 .icon_arrow img {
@@ -236,20 +241,52 @@
 }
 
 .journey_intermediate_stops {
-  padding: 20px 0 15px 35px;
+  padding: 20px 0 15px 62px;
+  font-weight: 300;
+  color: #888;
+  position: relative;
+}
+
+.journey_walk_specification {
+  padding: 20px 0 15px 62px;
   font-weight: 300;
   color: #888;
   position: relative;
 }
 
 .journey_icon {
-  background-color: red;
+  background-color: #062c30;
   width: 30px;
 }
 
 .journey_icon_container {
   display: inline-flex;
-  position: absolute;
+  position: relative;
   top: 0px;
   left: -15px;
+  height: 36px;
+}
+
+.journey_icon_container img {
+  padding: 6px;
+  border-bottom-left-radius: 50% 25%;
+  border-bottom-right-radius: 50% 25%;
+  border-top-left-radius: 50% 25%;
+  border-top-right-radius: 50% 25%;
+}
+
+.circle_black {
+  position: relative;
+  left: -2px;
+  width: 9px;
+  height: 9px;
+  background-color: #062c30;
+  border-radius: 50%;
+}
+
+.route_short_name {
+  font-weight: 1000;
+  margin-right: 5px;
+  border: 1px solid #888;
+  padding: 0px 3px;
 }
