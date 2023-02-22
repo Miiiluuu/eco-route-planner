@@ -60,7 +60,6 @@
   left: 0;
   width: 100%;
   background-color: #05595b;
-  color: #e2d784;
   height: 50px;
 }
 
@@ -81,4 +80,9 @@
 .nav_link_footer:hover {
   background-color: #e2d784;
   color: #05595b;
+}
+
+.copyright {
+  font-size: 17px;
+  color: #958f61;
 }
