@@ -23,7 +23,19 @@ export function Layout(props) {
         <div className={Styles.stripe2}></div>
       </header>
       <main>{props.children}</main>
-      <footer className={Styles.footer}>Footer</footer>
+      <footer className={Styles.footer}>
+        <nav className={Styles.nav_bar_footer}>
+          <Link className={Styles.nav_link_footer} href="">
+            Inprint
+          </Link>
+          <Link className={Styles.nav_link_footer} href="">
+            Terms & Conditions
+          </Link>
+          <Link className={Styles.nav_link_footer} href="">
+            Privacy Policy
+          </Link>
+        </nav>
+      </footer>
     </div>
   );
 }

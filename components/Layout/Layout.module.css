@@ -15,6 +15,7 @@
   display: inline-block;
   color: #05595b;
   padding: 6px;
+  font-size: 19px;
 }
 
 .nav_link:hover {
@@ -60,7 +61,24 @@
   width: 100%;
   background-color: #05595b;
   color: #e2d784;
-  font-size: 25px;
-  height: 70px;
-  text-align: center;
+  height: 50px;
+}
+
+.nav_bar_footer {
+  width: 100%;
+  text-align: right;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.nav_link_footer {
+  display: inline-block;
+  font-size: 18px;
+  color: #958f61;
+  padding: 8px;
+}
+
+.nav_link_footer:hover {
+  background-color: #e2d784;
+  color: #05595b;
 }
