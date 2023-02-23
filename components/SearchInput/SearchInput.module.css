@@ -1,0 +1,28 @@
+.search_fields {
+  margin: 20px;
+}
+
+.input_field {
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 50%;
+}
+
+.submit_field {
+  display: block;
+  float: right;
+  padding: 5px;
+  width: 10%;
+  cursor: pointer;
+}
+
+.suggestion {
+  cursor: pointer;
+  border: 1px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.suggestion:hover {
+  background-color: grey;
+}

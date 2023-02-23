@@ -7,17 +7,17 @@ export function Layout(props) {
     <div>
       <header className={Styles.header}>
         <div className={Styles.logo}>
-          <img src="logo.png" />
+          <img src="logo.png" alt="trawell logo" />
         </div>
         <nav className={Styles.nav_bar}>
           <Link className={Styles.nav_link} href="">
-            Routenplaner
+            Route planner
           </Link>
           <Link className={Styles.nav_link} href="">
-            Über uns
+            About us
           </Link>
           <Link className={Styles.nav_link} href="">
-            Anmelden
+            Login
           </Link>
         </nav>
         <div className={Styles.stripe1}></div>
