@@ -87,19 +87,19 @@ export default function TripDisplay({
                   <img src="leaf_icon.png" alt="leaf icon" />
                 </div>
 
-                {/* transportation&time specification */}
+                {/* time specification */}
                 <div className={Styles.icon_transportation_time}>
-                  <img
-                    src={
-                      itinerary.transitTime != 0
-                        ? 'transit_icon.png'
-                        : 'walk_icon.png'
-                    }
-                    alt="transportation icon"
-                  />
                   <div className={Styles.trip_time}>
-                    {`${Math.round(itinerary.duration / 60)} min`}
+                    {`${extractJustTime(itinerary?.startTime)}`}
                   </div>
+                  <div className={Styles.trip_time}>
+                    {`${extractJustTime(itinerary?.endTime)}`}
+                  </div>
+                </div>
+
+                {/* duration specification */}
+                <div className={Styles.trip_time}>
+                  {`${Math.round(itinerary.duration / 60)} min`}
                 </div>
 
                 {/* trip outline */}
