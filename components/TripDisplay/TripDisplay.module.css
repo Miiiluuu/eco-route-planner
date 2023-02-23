@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 6px;
 }
 
 .single_trip_heading {
@@ -167,7 +168,7 @@
 .connection_journey {
   overflow-y: auto;
   /*   flex: 1 1 auto; */
-  padding: 20px 20px 0 20px;
+  padding: 20px 20px 10px 20px;
 }
 
 .journey_details {
