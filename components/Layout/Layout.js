@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Styles from './Layout.module.css';
+import Image from 'next/image';
 
 export function Layout(props) {
   return (
@@ -22,6 +23,18 @@ export function Layout(props) {
         <div className={Styles.stripe1}></div>
         <div className={Styles.stripe2}></div>
       </header>
+      <div className={Styles.backgroundimage}>
+        <Image 
+        src="/Hintergrund.webp"  
+        alt="footprints of water in a forest"
+        layout='fill'/> 
+        <div className={Styles.backgroundtextleft}>
+          Nachhaltig 
+        </div>
+        <div className={Styles.backgroundtextright}>
+         Reisen.
+        </div>
+        </div>
       <main>{props.children}</main>
       <footer>Footer</footer>
     </div>
