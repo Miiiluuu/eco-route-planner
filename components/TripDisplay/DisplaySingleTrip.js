@@ -35,16 +35,6 @@ const extractJustTime = date => {
   return `${hour}:${minutes}`;
 };
 
-/* // this function extracts informations from the individually legs of the travel plan
-const extractInfo = info => {
-  console.log('Info leg', info);
-  const mode = 'mode' in info ? info.mode : 'unavailable';
-  const time = 'duration' in info ? info.duration : 'unavailable';
-  console.log('duration', time);
-  console.log('mode', mode);
-  return 'test';
-}; */
-
 // if the user clicks on a trip then more details are shown (and the route is displayed on the map)
 const onSuggestHandler = (show, setShow) => {
   setShow(!show);
@@ -56,7 +46,12 @@ export default function DisplaySingleTrip({
   startLocationInput,
   endLocationInput,
 }) {
-  const [show, setShow] = useState(false); // hook to show the details of the trip
+  const [showTripOne, setShowTripOne] = useState(false); // hook to show the details of the trip No1
+  const [showTripTwo, setShowTripTwo] = useState(false); // hook to show the details of the trip No2
+  const [showTripTree, setShowTripTree] = useState(false); // hook to show the details of the trip No3
+
+  const show = [showTripOne, showTripTwo, showTripTree]; //used array to address the right hook inside map()
+  const setShow = [setShowTripOne, setShowTripTwo, setShowTripTree]; //used array to address the right hook inside map()
 
   return (
     <>
@@ -65,7 +60,7 @@ export default function DisplaySingleTrip({
           <Fragment key={index}>
             <div
               className={Styles.single_trip}
-              onClick={() => onSuggestHandler(show, setShow)}
+              onClick={() => onSuggestHandler(show[index], setShow[index])}
               tabIndex="-1" // By default an <div> element has no focus so onBlur usually doesn't work, this is a workaround but not recommended. Using a button instead would be the right way
               /* onBlur={() => setShow(false)} */
             >
@@ -93,8 +88,6 @@ export default function DisplaySingleTrip({
               {/* trip outline */}
               <div className={Styles.trip_outline}>
                 {itinerary?.legs?.map((leg, index) => {
-                  //extractInfo(leg);
-                  //console.log('Mode inside JSX: ', leg.mode);
                   return (
                     <Fragment key={index}>
                       <div className={Styles.transportation_icon_container}>
@@ -141,7 +134,7 @@ export default function DisplaySingleTrip({
               </div>
             </div>
 
-            {show && ( // if show is true then more details are shown
+            {show[index] && ( // if show is true then more details are shown
               <div className={Styles.connection_details}>
                 {/* a short summary of the connection follows */}
                 <div className={Styles.connection_info}>
@@ -199,8 +192,6 @@ export default function DisplaySingleTrip({
                 {/* a detailed outline of the connection follows */}
                 <div className={Styles.connection_journey}>
                   {itinerary?.legs.map((leg, index) => {
-                    //extractInfo(leg);
-                    //console.log('Mode inside JSX: ', leg.mode);
                     return (
                       <Fragment key={index}>
                         <div className={`${leg.mode}`}>
