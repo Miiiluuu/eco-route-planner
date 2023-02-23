@@ -9,6 +9,10 @@
   margin-bottom: 6px;
 }
 
+.single_trip:active {
+  border: 4px solid #E2D784;
+}
+
 .single_trip_heading {
   position: relative;
   left: 10px;
