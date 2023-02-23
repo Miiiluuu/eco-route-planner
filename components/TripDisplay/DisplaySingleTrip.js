@@ -50,16 +50,17 @@ const onSuggestHandler = (show, setShow) => {
   setShow(!show);
 };
 
-export default function DisplayTransitWalk({
+export default function DisplaySingleTrip({
   plan,
+  modus,
   startLocationInput,
   endLocationInput,
 }) {
+  const [show, setShow] = useState(false); // hook to show the details of the trip
+
   return (
     <>
-      {/* display transit trip(s) */}
       {plan?.itineraries?.map((itinerary, index) => {
-        const [show, setShow] = useState(false); // hook to show the details of the trip
         return (
           <Fragment key={index}>
             <div
@@ -102,6 +103,10 @@ export default function DisplayTransitWalk({
                           src={
                             leg.mode == 'WALK'
                               ? 'walk_icon.png'
+                              : leg.mode == 'CAR'
+                              ? 'car_icon.png'
+                              : leg.mode == 'BICYCLE'
+                              ? 'bicycle_icon.png'
                               : 'transit_icon.png'
                           }
                           alt="transportation icon"
@@ -120,6 +125,10 @@ export default function DisplayTransitWalk({
                           .${leg.mode} {
                             background-color: ${leg.mode == 'WALK'
                               ? '#e2d784'
+                              : leg.mode == 'CAR'
+                              ? '#ED6B5B'
+                              : leg.mode == 'BICYCLE'
+                              ? '#4971e7'
                               : '#4CAF50'};
                             width: ${leg.duration}px;
                           }
@@ -160,6 +169,10 @@ export default function DisplayTransitWalk({
                           src={
                             itinerary.transitTime != 0
                               ? 'transit_icon.svg'
+                              : modus == 'car'
+                              ? 'car_icon.svg'
+                              : modus == 'bicycle'
+                              ? 'bicycle_icon.svg'
                               : 'walk_icon.svg'
                           }
                           alt="transportation icon"
@@ -196,6 +209,10 @@ export default function DisplayTransitWalk({
                             .${leg.mode} {
                               border-left: ${leg.mode == 'WALK'
                                 ? '5px solid #e2d784'
+                                : leg.mode == 'CAR'
+                                ? '5px solid #ED6B5B'
+                                : leg.mode == 'BICYCLE'
+                                ? '5px solid #4971e7'
                                 : '5px solid #4CAF50'};
                             }
                           `}</style>
@@ -206,6 +223,10 @@ export default function DisplayTransitWalk({
                                 src={
                                   leg.mode == 'WALK'
                                     ? 'walk_icon.png'
+                                    : leg.mode == 'CAR'
+                                    ? 'car_icon.png'
+                                    : leg.mode == 'BICYCLE'
+                                    ? 'bicycle_icon.png'
                                     : 'transit_icon.png'
                                 }
                                 alt="transportation icon"
@@ -228,7 +249,7 @@ export default function DisplayTransitWalk({
                               }`}</div>
                             </div>
                           </div>
-                          {leg.mode != 'WALK' ? (
+                          {leg.transitLeg ? (
                             <div className={Styles.transit_specific_details}>
                               <div className={Styles.journey_direction}>
                                 <span className={Styles.direction}>
@@ -257,7 +278,11 @@ export default function DisplayTransitWalk({
                               </div>
                             </div>
                           ) : (
-                            <div className={Styles.walk_specific_details}>
+                            <div
+                              className={
+                                Styles.walk_car_bicycle_specific_details
+                              }
+                            >
                               <div
                                 className={Styles.journey_walk_specification}
                               >

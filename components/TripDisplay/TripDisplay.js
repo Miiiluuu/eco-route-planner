@@ -1,5 +1,5 @@
 import Styles from './TripDisplay.module.css';
-import DisplayTransitWalk from './DisplayTransitWalk';
+import DisplaySingleTrip from './DisplaySingleTrip';
 
 export default function TripDisplay({
   planBicycle,
@@ -19,8 +19,24 @@ export default function TripDisplay({
     // just show this element if all informations are fetched (maybe there is a shorter way to express that?)
     return (
       <>
-        <DisplayTransitWalk
+        {/* displays trip bicycle */}
+        <DisplaySingleTrip
+          plan={planBicycle}
+          modus="bicycle"
+          startLocationInput={startLocationInput}
+          endLocationInput={endLocationInput}
+        />
+        {/* displays (3) transit trips */}
+        <DisplaySingleTrip
           plan={planTransit}
+          modus="transit"
+          startLocationInput={startLocationInput}
+          endLocationInput={endLocationInput}
+        />
+        {/* displays trip by car */}
+        <DisplaySingleTrip
+          plan={planCar}
+          modus="car"
           startLocationInput={startLocationInput}
           endLocationInput={endLocationInput}
         />
