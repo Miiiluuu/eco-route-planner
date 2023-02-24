@@ -123,7 +123,7 @@ export default function DisplaySingleTrip({
                               : leg.mode == 'BICYCLE'
                               ? '#4971e7'
                               : '#4CAF50'};
-                            width: ${leg.duration}px;
+                            width: ${leg.distance}px;
                           }
                         `}</style>
                       </div>
