@@ -29,10 +29,10 @@ export function Layout(props) {
         alt="footprints of water in a forest"
         layout='fill'/> 
         <div className={Styles.backgroundtextleft}>
-          Nachhaltig 
+          Travel
         </div>
         <div className={Styles.backgroundtextright}>
-         Reisen.
+         ecofriendly.
         </div>
         </div>
       <main>{props.children}</main>
