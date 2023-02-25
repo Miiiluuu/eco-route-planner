@@ -1,8 +1,10 @@
 import { Polyline, useMap, Marker } from "react-leaflet";
 import polyUtil from "polyline-encoded";
 
+// in this form just working right for bicycle, car and walking trips
+// TODO: ShowTravelPlan executes before all informations/plans are fetched, it would be better if there is like a spinner and the function waits until all OTP datas are fetched..
 export default function ShowTravelPlan({ plan, toIcon, fromIcon }) {
-  console.log("ShowTravelPlan: ", plan);
+  //console.log("ShowTravelPlan: ", plan);
   if (typeof plan != "undefined" && Object.keys(plan).length > 0) {
     const map = useMap();
     const positionFrom = { lat: plan.from.lat, lon: plan.from.lon };
