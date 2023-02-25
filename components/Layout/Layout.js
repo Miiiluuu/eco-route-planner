@@ -36,7 +36,20 @@ export function Layout(props) {
         </div>
         </div>
       <main>{props.children}</main>
-      <footer>Footer</footer>
+      <footer className={Styles.footer}>
+        <div className={Styles.copyright}>©Crazy 8 by Techlabs</div>
+        <nav className={Styles.nav_bar_footer}>
+          <Link className={Styles.nav_link_footer} href="">
+            Inprint
+          </Link>
+          <Link className={Styles.nav_link_footer} href="">
+            Terms & Conditions
+          </Link>
+          <Link className={Styles.nav_link_footer} href="">
+            Privacy Policy
+          </Link>
+        </nav>
+      </footer>
     </div>
   );
 }
