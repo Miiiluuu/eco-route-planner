@@ -10,7 +10,7 @@ export default function SearchInput({ setStartCoords, setEndCoords, setStartLoca
 
   // if you press submit the entered locations will be translated to coordinates (lat,lon)
   const handleSubmit = event => {
-    //console.log("SearchInput: HandleSubmit");
+
     event.preventDefault();
 
     setStartLocationInput(startLocation); // sets and save the startLocation when the user press submit
@@ -52,20 +52,25 @@ export default function SearchInput({ setStartCoords, setEndCoords, setStartLoca
   return (
     <section className={Styles.search}>
       <form className={Styles.search_fields} onSubmit={handleSubmit}>
-        <div>
-          <AutoCompleteField
-            value={startLocation}
-            setValue={setStartLocation}
-            placeholder="from..."
-          />
-          <AutoCompleteField
-            value={endLocation}
-            setValue={setEndLocation}
-            placeholder="to..."
-          />
+        <div className={Styles.input_container}>
+          <div className={Styles.autocomp}>
+            <AutoCompleteField
+              value={startLocation}
+              setValue={setStartLocation}
+              placeholder="from..."
+            />
+          </div>
+
+          <div className={Styles.autocomp}>
+            <AutoCompleteField
+              value={endLocation}
+              setValue={setEndLocation}
+              placeholder="to..."
+            />
+          </div>
         </div>
         <button type="submit" className={Styles.submit_field}>
-          Search Routes
+          Plan your trip!
         </button>
       </form>
     </section>

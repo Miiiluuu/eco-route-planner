@@ -7,6 +7,7 @@ import ShowTravelPlan from './ShowTravelPlan';
 export default function DynamicMap({ planBicycle }) {
   //console.log("DynamicMap: ganz oben " + start);
 
+
   // center of map, right now coordinates of airport Hamburg
   let center = [53.63383190811092, 9.99638283572184];
 
@@ -35,7 +36,7 @@ export default function DynamicMap({ planBicycle }) {
     //popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
-  
+
   return (
     <div>
       {/* Embedding of Leaflet map */}

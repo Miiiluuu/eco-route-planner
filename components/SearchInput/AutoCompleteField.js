@@ -22,6 +22,7 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
     // to avoid too many API calls datas are only fetched after the user entered > 3 letters, also if the user deletes letters there will be no fetching (API throttling)
     if (input.length > 3 && input.length > oldInput.length) {
       const fetchSuggestions = async () => {
+
         try {
           let result = await axios(
             // API call contains location bias (hamburg airport), number of results is limited to 5
@@ -38,6 +39,7 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
         } catch (error) {
           // TypeError: Failed to fetch
           console.log('There was an error', error);
+
         }
       };
 
@@ -61,7 +63,7 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
   };
 
   return (
-    <>
+    <div className={Styles.autocomp_container}>
       <input
         type="text"
         className={Styles.input_field}
@@ -71,18 +73,22 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
         required
         onBlur={() => onBlurHandler()}
       />
-      {/* each suggestion will be displayed as <div> element underneath the input field */}
-      {suggestions /* if there are no suggestions nothing will appear*/ &&
-        suggestions.map((suggestion, index) => (
-          <div
-            className={Styles.suggestion}
-            onMouseDown={() => setKeepListOpen(true)}
-            onClick={() => onSuggestHandler(suggestion)}
-            key={index}
-          >
-            {suggestion}
-          </div>
-        ))}
-    </>
+
+      <div className={Styles.suggestion_container}>
+        {/* each suggestion will be displayed as <div> element underneath the input field */}
+        {suggestions /* if there are no suggestions nothing will appear*/ &&
+          suggestions.map((suggestion, index) => (
+            <div
+              className={Styles.suggestion}
+              onMouseDown={() => setKeepListOpen(true)}
+              onClick={() => onSuggestHandler(suggestion)}
+              key={index}
+            >
+              {suggestion}
+            </div>
+          ))}
+      </div>
+    </div>
+
   );
 }

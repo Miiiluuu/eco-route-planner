@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import SearchInput from '../components/SearchInput/SearchInput';
 import TripDisplay from '../components/TripDisplay/TripDisplay';
 import axios from 'axios';
+import {About} from "../components/About/About";
+
 
 export default function Home() {
   const [startCoords, setStartCoords] = useState(''); // coordinates in lat,lon
@@ -75,7 +77,7 @@ export default function Home() {
   }, [startCoords, endCoords]);
 
   return (
-    <div>
+    <div className="total">
       <h1>Home</h1>
       <SearchInput
         setStartCoords={setStartCoords}
@@ -91,6 +93,7 @@ export default function Home() {
         startLocationInput={startLocationInput}
         endLocationInput={endLocationInput}
       />
+      <About/>
     </div>
   );
 }
