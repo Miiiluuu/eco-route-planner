@@ -21,7 +21,8 @@
 .nav_link:hover {
   background-color: #05595b;
   color: #e2d784;
-  font-size: 120%;
+  font-size: 130%;
+  border-radius: 5px;
 }
 
 .nav_bar {
@@ -80,6 +81,7 @@
 .nav_link_footer:hover {
   background-color: #e2d784;
   color: #05595b;
+  border-radius: 5px;
 }
 
 .copyright {
