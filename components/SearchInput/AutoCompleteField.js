@@ -64,7 +64,7 @@ export default function AutoCompleteField({ value, setValue, placeholder }) {
 
   return (
     <div className={Styles.autocomp_container}>
-      <input
+      <input 
         type="text"
         className={Styles.input_field}
         value={value}
