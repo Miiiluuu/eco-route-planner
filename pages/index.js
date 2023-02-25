@@ -1,6 +1,7 @@
 import Map from '../components/Map/Map';
 import { useState } from 'react';
 import SearchInput from '../components/SearchInput/SearchInput';
+import {About} from "../components/About/About";
 
 export default function Home() {
   const [startCoords, setStartCoords] = useState(''); // coordinates in lat,lon
@@ -14,6 +15,7 @@ export default function Home() {
         setEndCoords={setEndCoords}
       />
       <Map start={startCoords} end={endCoords} />
+      <About/>
     </div>
   );
 }
