@@ -12,7 +12,7 @@ export function Layout(props) {
           <Link className={Styles.nav_link} href="">
             Route planner
           </Link>
-          <Link className={Styles.nav_link} href="">
+          <Link className={Styles.nav_link} href="#about">
             About us
           </Link>
           <Link className={Styles.nav_link} href="">
