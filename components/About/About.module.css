@@ -1,10 +1,15 @@
 .background{
     background-color: #05595B;
-    width: 100%; 
-    padding: 10% 30% 30% 10%;
+    width: 100%;
+    padding: 10% 20% 10% 20%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    
 }
 .text-background{
-    background-color: #FFFFFF;
+    background-color: #F5F5F5;
+    border-radius: 5px;
     padding: 50px;
 }
 
@@ -13,6 +18,7 @@
     font-family: roboto, helvetica, arial;
     font-size: 48px;
     padding:10px ;
+    text-align: center;
 }
 
 .p-about{
@@ -20,6 +26,7 @@
     font-family: roboto, helvetica, arial;
     font-size: 24px;
     padding:10px;
+    text-align: justify;
 }
 
 .footer{

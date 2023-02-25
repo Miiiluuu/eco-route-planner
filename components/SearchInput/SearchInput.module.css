@@ -12,6 +12,8 @@
   border: 3px solid #05595b;
   border-radius: 5px;
   width: 100%;
+  height: 50px;
+  font-size: 20px;
 }
 
 .autocomp {
@@ -21,16 +23,20 @@
 .submit_field {
   display: block;
   padding: 5px;
-  width: 30%;
+  width: 20%;
   cursor: pointer;
   border: 3px solid #05595b;
   border-radius: 5px;
-  background-color: #f8f0b1;
+  background-color: #05595b;
   float: right;
+  height: 50px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffff;
 }
 
 .submit_field:hover {
-  background-color: #f8f0b1;
+  background-color: #e2d784;
   color: #05595b;
   font-size: 120%;
 }
@@ -38,6 +44,11 @@
 .suggestion {
   cursor: pointer;
   border: 1px;
+  font-size: 20px;
+  padding: 4px;
+  height: 50px;
+  display: flex;
+  align-items: center;
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
@@ -54,7 +65,7 @@
 
 .suggestion_container {
   position: absolute;
-  top: 30px;
+  top: 50px;
   z-index: 1001;
   width: 100%;
 }
