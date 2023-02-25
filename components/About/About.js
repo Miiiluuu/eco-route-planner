@@ -5,7 +5,7 @@ export function About(props) {
     <div className={styles.background}>
       {props.children}
       <div className={styles['text-background']}>
-        <h1 className={styles['h1-about']}>Über uns</h1>
+        <h1 id="about" className={styles['h1-about']}>Über uns</h1>
         <p className={styles['p-about']}>TraWell has set itself the goal of promoting the compatibility of sustainability and good travel planning
           to enable green travel for everyone. We attach great importance to the fact that all alternatives not otherwise listed
           be displayed quickly and clearly. Have you noticed our sustainability sheets? These give you one
