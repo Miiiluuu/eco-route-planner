@@ -40,7 +40,7 @@ const onSuggestHandler = (show, setShow) => {
   setShow(!show);
 };
 
-export default function DisplaySingleTrip({
+export default function DisplayTripMode({
   plan,
   modus,
   emissions,

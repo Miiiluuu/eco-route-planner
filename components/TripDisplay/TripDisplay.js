@@ -1,5 +1,5 @@
 import Styles from './TripDisplay.module.css';
-import DisplaySingleTrip from './DisplaySingleTrip';
+import DisplayTripMode from './DisplayTripMode';
 
 // function to estimate emissions
 const estimateEmissions = plan => {
@@ -74,12 +74,6 @@ const calculateEmissions = (planBicycle, planTransit, planCar) => {
     }
   }
 
-  emissions.map((emission, index) => {
-    if (emission[2]) {
-    }
-    console.log('Vergleich', emission[2]);
-  });
-
   return emissions;
 };
 
@@ -134,7 +128,7 @@ export default function TripDisplay({
     return (
       <>
         {/* displays trip bicycle */}
-        <DisplaySingleTrip
+        <DisplayTripMode
           plan={planBicycle}
           modus="bicycle"
           emissions={emissonsBicycle}
@@ -142,7 +136,7 @@ export default function TripDisplay({
           endLocationInput={endLocationInput}
         />
         {/* displays (3) transit trips */}
-        <DisplaySingleTrip
+        <DisplayTripMode
           plan={planTransit}
           modus="transit"
           emissions={emissionsTransit}
@@ -150,7 +144,7 @@ export default function TripDisplay({
           endLocationInput={endLocationInput}
         />
         {/* displays trip by car */}
-        <DisplaySingleTrip
+        <DisplayTripMode
           plan={planCar}
           modus="car"
           emissions={emissionsCar}
