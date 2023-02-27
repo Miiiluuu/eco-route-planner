@@ -31,11 +31,14 @@ export function Layout(props) {
             <Link className={Styles.nav_link_footer} href="/emission-sources">
               List of References
             </Link>
-            <Link className={Styles.nav_link_footer} href="">
-              Inprint
+            <Link className={Styles.nav_link_footer} href="https://github.com/Miiiluuu/eco-route-planner">
+              GitHub
             </Link>
             <Link className={Styles.nav_link_footer} href="">
               Terms & Conditions
+            </Link>
+            <Link className={Styles.nav_link_footer} href="">
+              Impressum
             </Link>
             <Link className={Styles.nav_link_footer} href="">
               Privacy Policy
