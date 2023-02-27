@@ -10,7 +10,7 @@
 }
 
 .single_trip:active {
-  border: 4px solid #E2D784;
+  border: 4px solid #e2d784;
 }
 
 .single_trip_heading {
@@ -295,4 +295,18 @@
   margin-right: 5px;
   border: 1px solid #888;
   padding: 0px 3px;
+}
+
+.emission {
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.link_sources:hover {
+  cursor: pointer;
+}
+
+.link_sources {
+  font-weight: bold;
+  color: #ED6B5B;
 }

@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react';
 import Styles from './TripDisplay.module.css';
+import Link from 'next/link';
 
 // function to extract Date (old format is integer value representing the number of milliseconds since January 1, 1970, 00:00:00 UTC, new format is day/month/year)
 const extractJustDate = date => {
@@ -203,6 +204,16 @@ export default function DisplayTripMode({
                         {`${itinerary.transfers}${
                           itinerary.transfers != 1 ? ' transfers' : ' transfer'
                         }`}
+                      </span>
+                      <span className={Styles.emission}>
+                        <div>
+                          This trip causes {emissions[index][0][1].toFixed(2)}{' '}
+                          kg CO{'\u2082'}e.
+                        </div>
+                        <div>
+                          <Link href="/emission-sources">Click here</Link> to
+                          find out more!
+                        </div>
                       </span>
                     </div>
                   </div>

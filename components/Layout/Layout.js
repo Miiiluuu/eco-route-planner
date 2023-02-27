@@ -9,10 +9,10 @@ export function Layout(props) {
           <img src="logo.png" alt="trawell logo" />
         </div>
         <nav className={Styles.nav_bar}>
-          <Link className={Styles.nav_link} href="#map">
+          <Link className={Styles.nav_link} href="/#map">
             Route planner
           </Link>
-          <Link className={Styles.nav_link} href="#about">
+          <Link className={Styles.nav_link} href="/#about">
             About us
           </Link>
           <Link className={Styles.nav_link} href="">
@@ -28,8 +28,8 @@ export function Layout(props) {
         <div className={Styles.copyright_container}>
           <div className={Styles.copyright}>©Crazy 8 by Techlabs</div>
           <nav className={Styles.nav_bar_footer}>
-            <Link className={Styles.nav_link_footer} href="">
-              Emission Source
+            <Link className={Styles.nav_link_footer} href="/emission-sources">
+              List of References
             </Link>
             <Link className={Styles.nav_link_footer} href="">
               Inprint

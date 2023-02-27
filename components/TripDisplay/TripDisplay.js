@@ -33,17 +33,17 @@ const estimateEmissions = plan => {
 // function to calculate plus compare the emissions of transit / car / bicycle trips and to sort the emission values
 const calculateEmissions = (planBicycle, planTransit, planCar) => {
   // calculate emissions
-  const emission_BicycleTrip = estimateEmissions(planBicycle?.itineraries?.[0]); // unit co2 equivalent
+  const emission_BicycleTrip = estimateEmissions(planBicycle?.itineraries?.[0]); // unit kg co2 equivalent
   const emission_TransitTripOne = estimateEmissions(
     planTransit?.itineraries?.[0]
-  ); // unit co2 equivalent
+  ); // unit kg co2 equivalent
   const emission_TransitTripTwo = estimateEmissions(
     planTransit?.itineraries?.[1]
-  ); // unit co2 equivalent
+  ); // unit kg co2 equivalent
   const emission_TransitTripTree = estimateEmissions(
     planTransit?.itineraries?.[2]
-  ); // unit co2 equivalent
-  const emission_CarTrip = estimateEmissions(planCar?.itineraries?.[0]); // unit co2 equivalent
+  ); // unit kg co2 equivalent
+  const emission_CarTrip = estimateEmissions(planCar?.itineraries?.[0]); // unit kg co2 equivalent
 
   // saving emissions in an array
   let sortable = [
@@ -117,13 +117,6 @@ export default function TripDisplay({
     ];
     // Car
     const emissionsCar = [emissions.filter(element => element[0] == 'CAR')];
-
-    console.log('FILTERED nach BICYCLE', emissonsBicycle);
-    console.log('FILTERED nach CAR', emissionsCar);
-    console.log('FILTERED nach Transit No1', emissionsTransitTripOne);
-    console.log('FILTERED nach Transit No2', emissionsTransitTripTwo);
-    console.log('FILTERED nach Transit No3', emissionsTransitTripTree);
-    console.log('emissionsTransit', emissionsTransit);
 
     return (
       <>
