@@ -7,7 +7,8 @@ export default function BackgroundImage() {
       <Image
         src="/Hintergrund.webp"
         alt="footprints of water in a forest"
-        layout="fill"
+        fill
+        priority
       />
       <div className={Styles.backgroundtextleft}>Travel</div>
       <div className={Styles.backgroundtextright}>ecofriendly.</div>

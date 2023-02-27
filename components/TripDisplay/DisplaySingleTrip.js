@@ -43,6 +43,7 @@ const onSuggestHandler = (show, setShow) => {
 export default function DisplaySingleTrip({
   plan,
   modus,
+  emissions,
   startLocationInput,
   endLocationInput,
 }) {
@@ -52,6 +53,8 @@ export default function DisplaySingleTrip({
 
   const show = [showTripOne, showTripTwo, showTripTree]; //used array to address the right hook inside map()
   const setShow = [setShowTripOne, setShowTripTwo, setShowTripTree]; //used array to address the right hook inside map()
+
+  console.log('INSIDE SingleTrip Bicycle', emissions);
 
   return (
     <>
@@ -66,8 +69,24 @@ export default function DisplaySingleTrip({
             >
               {/* emission specification */}
               <div className={Styles.icon_leafs}>
-                <img src="leaf_icon.png" alt="leaf icon" />
-                <img src="leaf_icon.png" alt="leaf icon" />
+                {emissions[index][0][2] == 'first' ? ( // the trip with the lowest emission will get tree leafs
+                  <>
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                  </>
+                ) : emissions[index][0][2] == 'second' ? ( // the trip with the second lowest emission will get two leafs
+                  <>
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                  </>
+                ) : emissions[index][0][2] == 'third' ? ( // the trip with the third lowest emission will get one leaf
+                  <>
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
 
               {/* time specification */}

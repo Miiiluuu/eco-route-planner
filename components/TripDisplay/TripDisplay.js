@@ -5,11 +5,11 @@ import DisplaySingleTrip from './DisplaySingleTrip';
 const estimateEmissions = plan => {
   let trip_emission = 0;
   // emission factor
-  const emission_bicycle = 1; //co2 equivalent caused by bicycle, unit per meter
-  const emission_car = 3; //co2 equivalent caused by car, unit per meter
-  const emission_rail = 2; //co2 equivalent caused by rail, unit per meter
-  const emission_subway = 2; //co2 equivalent caused by subway, unit per meter
-  const emission_bus = 1.5; //co2 equivalent caused by bus, unit per meter
+  const emission_bicycle = 0.00408; //co2 equivalent caused by bicycle, unit per meter
+  const emission_car = 0.144; //co2 equivalent caused by car, unit per meter
+  const emission_rail = 0.0546; //co2 equivalent caused by rail, unit per meter
+  const emission_subway = 0.0546; //co2 equivalent caused by subway, unit per meter
+  const emission_bus = 0.0434; //co2 equivalent caused by bus, unit per meter
 
   plan?.legs?.map(leg => {
     leg.mode == 'WALK' // walking has no emissions, just add emissions if it's not 'WALK'
@@ -67,6 +67,19 @@ const calculateEmissions = (planBicycle, planTransit, planCar) => {
     [sortable[4][0], sortable[4][1], 'fifth'],
   ];
 
+  // this loops checks if emissions of different trips are equal and if that's the case it updates the order
+  for (let i = 0; i < 4; i++) {
+    if (emissions[i + 1][1] == emissions[i][1]) {
+      emissions[i + 1][2] = emissions[i][2];
+    }
+  }
+
+  emissions.map((emission, index) => {
+    if (emission[2]) {
+    }
+    console.log('Vergleich', emission[2]);
+  });
+
   return emissions;
 };
 
@@ -89,10 +102,11 @@ export default function TripDisplay({
 
     // define emissions of all trips
     const emissions = calculateEmissions(planBicycle, planTransit, planCar);
-
-    const emissonsBicycle = emissions.filter(
-      element => element[0] == 'BICYCLE'
-    );
+    // Bicycle
+    const emissonsBicycle = [
+      emissions.filter(element => element[0] == 'BICYCLE'),
+    ];
+    // Transit
     const emissionsTransitTripOne = emissions.filter(
       element => element[0] == 'TRANSIT_TRIP_ONE'
     );
@@ -102,13 +116,20 @@ export default function TripDisplay({
     const emissionsTransitTripTree = emissions.filter(
       element => element[0] == 'TRANSIT_TRIP_TREE'
     );
-    const emissionsCar = emissions.filter(element => element[0] == 'CAR');
+    const emissionsTransit = [
+      emissionsTransitTripOne,
+      emissionsTransitTripTwo,
+      emissionsTransitTripTree,
+    ];
+    // Car
+    const emissionsCar = [emissions.filter(element => element[0] == 'CAR')];
 
     console.log('FILTERED nach BICYCLE', emissonsBicycle);
     console.log('FILTERED nach CAR', emissionsCar);
     console.log('FILTERED nach Transit No1', emissionsTransitTripOne);
     console.log('FILTERED nach Transit No2', emissionsTransitTripTwo);
     console.log('FILTERED nach Transit No3', emissionsTransitTripTree);
+    console.log('emissionsTransit', emissionsTransit);
 
     return (
       <>
@@ -116,6 +137,7 @@ export default function TripDisplay({
         <DisplaySingleTrip
           plan={planBicycle}
           modus="bicycle"
+          emissions={emissonsBicycle}
           startLocationInput={startLocationInput}
           endLocationInput={endLocationInput}
         />
@@ -123,6 +145,7 @@ export default function TripDisplay({
         <DisplaySingleTrip
           plan={planTransit}
           modus="transit"
+          emissions={emissionsTransit}
           startLocationInput={startLocationInput}
           endLocationInput={endLocationInput}
         />
@@ -130,6 +153,7 @@ export default function TripDisplay({
         <DisplaySingleTrip
           plan={planCar}
           modus="car"
+          emissions={emissionsCar}
           startLocationInput={startLocationInput}
           endLocationInput={endLocationInput}
         />
