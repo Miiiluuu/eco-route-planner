@@ -27,7 +27,7 @@ npm run dev
 - [OpenStreetMap](https://www.openstreetmap.org/#map=6/51.330/10.453) is a crowd sourced geo-database and also the biggest source for open map data.
 - [OpenTripPlanner](https://docs.opentripplanner.org/en/v2.2.0/) as multimodal trip planner 
 - [photon](https://photon.komoot.io/) for geocoding (a OpenStreetMap data based geocoder)
-- [GTFS (General Transport Feed Specification)] (https://gtfs.org/) is a common exchange format for public (static) transit schedules and related information such as stop locations etcetera. It is the default format OpenTripPlanner is using for public transport routing.
+- [GTFS](https://gtfs.org/) (General Transport Feed Specification) is a common exchange format for public (static) transit schedules and related information such as stop locations etcetera. It is the default format OpenTripPlanner is using for public transport routing.
 - emission factors provided by the [German Environment Agency (Umweltbundesamt – UBA) ProBas database](https://www.probas.umweltbundesamt.de/php/index.php)
 
 Developers
