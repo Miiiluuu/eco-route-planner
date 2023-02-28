@@ -38,7 +38,7 @@ export function Layout(props) {
               Terms & Conditions
             </Link>
             <Link className={Styles.nav_link_footer} href="">
-              Impressum
+              Imprint
             </Link>
             <Link className={Styles.nav_link_footer} href="">
               Privacy Policy
