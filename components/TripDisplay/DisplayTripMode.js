@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react';
 import Styles from './TripDisplay.module.css';
+import Link from 'next/link';
 
 // function to extract Date (old format is integer value representing the number of milliseconds since January 1, 1970, 00:00:00 UTC, new format is day/month/year)
 const extractJustDate = date => {
@@ -40,9 +41,10 @@ const onSuggestHandler = (show, setShow) => {
   setShow(!show);
 };
 
-export default function DisplaySingleTrip({
+export default function DisplayTripMode({
   plan,
   modus,
+  emissions,
   startLocationInput,
   endLocationInput,
 }) {
@@ -52,6 +54,8 @@ export default function DisplaySingleTrip({
 
   const show = [showTripOne, showTripTwo, showTripTree]; //used array to address the right hook inside map()
   const setShow = [setShowTripOne, setShowTripTwo, setShowTripTree]; //used array to address the right hook inside map()
+
+  console.log('INSIDE SingleTrip Bicycle', emissions);
 
   return (
     <>
@@ -66,8 +70,24 @@ export default function DisplaySingleTrip({
             >
               {/* emission specification */}
               <div className={Styles.icon_leafs}>
-                <img src="leaf_icon.png" alt="leaf icon" />
-                <img src="leaf_icon.png" alt="leaf icon" />
+                {emissions[index][0][2] == 'first' ? ( // the trip with the lowest emission will get tree leafs
+                  <>
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                  </>
+                ) : emissions[index][0][2] == 'second' ? ( // the trip with the second lowest emission will get two leafs
+                  <>
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                  </>
+                ) : emissions[index][0][2] == 'third' ? ( // the trip with the third lowest emission will get one leaf
+                  <>
+                    <img src="leaf_icon.png" alt="leaf icon" />
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
 
               {/* time specification */}
@@ -184,6 +204,16 @@ export default function DisplaySingleTrip({
                         {`${itinerary.transfers}${
                           itinerary.transfers != 1 ? ' transfers' : ' transfer'
                         }`}
+                      </span>
+                      <span className={Styles.emission}>
+                        <div>
+                          This trip causes {emissions[index][0][1].toFixed(2)}{' '}
+                          kg CO{'\u2082'}e.
+                        </div>
+                        <div>
+                          <Link href="/emission-sources">Click here</Link> to
+                          find out more!
+                        </div>
                       </span>
                     </div>
                   </div>

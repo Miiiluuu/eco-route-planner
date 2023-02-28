@@ -1,0 +1,40 @@
+.background{
+    background-color: #05595B;
+    width: 100%;
+    padding: 10% 20% 10% 20%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.text-background{
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    padding: 50px;
+}
+
+.h1-emissions{
+    color:#062C30;
+    font-family: roboto, helvetica, arial;
+    font-size: 48px;
+    padding:10px ;
+    text-align: justify;
+}
+
+.p-emissions{
+    color:#062C30;
+    font-family: roboto, helvetica, arial;
+    font-size: 24px;
+    padding:10px;
+    text-align: justify;
+}
+
+.footer{
+    width: 100%; 
+    background-color:#E2D784;
+    height: 20px;
+}
+
+.tablehead {
+    font-weight: bold!important;
+}
