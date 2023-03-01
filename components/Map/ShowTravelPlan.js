@@ -1,22 +1,18 @@
-import { Polyline, useMap, Marker } from "react-leaflet";
-import polyUtil from "polyline-encoded";
+import { Polyline, useMap, Marker } from 'react-leaflet';
+import polyUtil from 'polyline-encoded';
 
 // in this form just working right for bicycle, car and walking trips
 // TODO: ShowTravelPlan executes before all informations/plans are fetched, it would be better if there is like a spinner and the function waits until all OTP datas are fetched..
 export default function ShowTravelPlan({ plan, toIcon, fromIcon }) {
-  //console.log("ShowTravelPlan: ", plan);
-  if (typeof plan != "undefined" && Object.keys(plan).length > 0) {
-    const map = useMap();
+  const map = useMap();
+
+  if (typeof plan != 'undefined' && Object.keys(plan).length > 0) {
     const positionFrom = { lat: plan.from.lat, lon: plan.from.lon };
     const positionTo = { lat: plan.to.lat, lon: plan.to.lon };
     const latCenter = plan.to.lat + (plan.from.lat - plan.to.lat) / 2;
     const lonCenter = plan.to.lon + (plan.from.lon - plan.to.lon) / 2;
     const roadCenter = { lat: latCenter, lon: lonCenter };
     map.flyTo(roadCenter, map.getZoom());
-
-    /*     if (positionFrom === null) {
-      return null;
-    } */
 
     // legGeometry.points holds encoded coordinates (lat, lon) of intermediate steps along the travel plan
     const polypositions = polyUtil.decode(
