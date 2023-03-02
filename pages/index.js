@@ -19,8 +19,7 @@ export default function Home() {
 
   // data fetching from OTP server
   // currently map of hamburg is loaded
-  const server =
-    'http://eco-router-planner-api.kmuenster.com/otp/routers/default/plan';
+  const server = 'https://api.trawell.kmuenster.com/otp/routers/default/plan';
 
   useEffect(() => {
     // API call by BICYCLE
