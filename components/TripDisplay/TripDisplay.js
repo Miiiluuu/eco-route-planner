@@ -5,11 +5,11 @@ import DisplayTripMode from './DisplayTripMode';
 const estimateEmissions = plan => {
   let trip_emission = 0;
   // emission factor
-  const emission_bicycle = 0.00408; //co2 equivalent caused by bicycle, unit per meter
-  const emission_car = 0.144; //co2 equivalent caused by car, unit per meter
-  const emission_rail = 0.0546; //co2 equivalent caused by rail, unit per meter
-  const emission_subway = 0.0546; //co2 equivalent caused by subway, unit per meter
-  const emission_bus = 0.0434; //co2 equivalent caused by bus, unit per meter
+  const emission_bicycle = 0.00408/1000; //co2 equivalent caused by bicycle, unit per meter
+  const emission_car = 0.144/1000; //co2 equivalent caused by car, unit per meter
+  const emission_rail = 0.0546/1000; //co2 equivalent caused by rail, unit per meter
+  const emission_subway = 0.0546/1000; //co2 equivalent caused by subway, unit per meter
+  const emission_bus = 0.0434/1000; //co2 equivalent caused by bus, unit per meter
 
   plan?.legs?.map(leg => {
     leg.mode == 'WALK' // walking has no emissions, just add emissions if it's not 'WALK'

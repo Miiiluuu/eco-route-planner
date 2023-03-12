@@ -60,7 +60,7 @@ export default function EmissionTable() {
           <TableRow>
             <TableCell className={Styles.tablehead}>MODE</TableCell>
             <TableCell className={Styles.tablehead} align="right">
-              CO{'\u2082'}e&nbsp;(kg/m)
+              CO{'\u2082'}e&nbsp;(kg/km)
             </TableCell>
             <TableCell className={Styles.tablehead} align="center">
               REFERENCE
